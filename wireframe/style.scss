@@ -1,0 +1,278 @@
+$vspacer: 5px;
+$hspacer: $vspacer;
+$fontsize: 4*$vspacer;
+$font: $fontsize Roboto,
+Helvetica,
+sans-serif;
+$color-primary: #202C59;
+$color-primary-info: lighten($color-primary, 20%);
+$color-secondary: #0582CA;
+$color-secondary-light: lighten($color-secondary, 20%);
+$color-secondary-dark: darken($color-secondary, 10%);
+$color-black: #050517;
+$color-grey: lighten($color-black, 60%);
+$color-lightgrey: lighten($color-black, 80%);
+$color-darkgrey: lighten($color-black, 40%);
+$color-white: #F4F6F7;
+$color-off-white: darken($color-white, 5%);
+$color-highlight: #FE4E00;
+$color-priority: #F18805;
+$color-priority-light: lighten($color-priority, 10%);
+$color-priority-dark: darken($color-priority, 10%);
+$bg-color-map: (primary:$color-primary,
+                  secondary: $color-secondary,
+                  dark: $color-black, 
+                  highlight: $color-highlight, 
+                  priority: $color-priority);
+
+@import 'normalize';
+
+div, nav, main, ul, body {
+  box-sizing: border-box;
+  font: $font;
+  text-shadow: rgba(0,0,0,.01) 0 0 1px;
+}
+
+div, p, a, button, input, nav, li {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+
+nav {
+    background-color: $color-primary;
+    color: $color-white;
+    padding: 4*$vspacer;
+    margin-bottom: 4*$vspacer;
+    display: flex;
+    align-items: center;
+    border-bottom: $vspacer solid darken($color-primary, 4%);
+}
+
+main {
+    color: $color-black;
+    font: inherit;
+    padding: 0 6*$hspacer;
+    max-width: 1366px;
+}
+
+a {
+  color: $color-secondary;
+  text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    color: inherit;
+}
+
+ul.inline-menu,
+ul.inline-menu li,
+ul.inline-menu li a {
+    display: inline-block;
+    color: $color-white;
+}
+
+ul.inline-menu li {
+    padding-right: $hspacer * 4;
+}
+
+i {
+    color: inherit !important;
+    font-size: inherit !important;
+}
+
+li {
+    color: inherit;
+}
+
+table {
+  width: 95%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 4*$vspacer;
+}
+
+thead tr {
+  background-color: lighten($color-highlight, 45%);
+}
+
+th, td {
+  padding: 2*$vspacer;
+  text-align: left;
+}
+
+
+tbody tr:nth-child(even) {
+  background-color: lighten($color-white, 1%);
+}
+tbody tr:nth-child(odd) {
+  background-color: darken($color-white, 2%);
+}
+
+
+.brand {
+    font-size: 2 * $fontsize;
+    padding-right: 8 * $hspacer;
+    color: $color-white;
+}
+
+.issue-tracker-brand {
+    font-size: .50 * $fontsize;
+    line-height: 20px;
+}
+
+.nav-priority {
+    padding: 2*$vspacer 3*$hspacer;
+    background-color: $color-priority;
+    font-weight: 600;
+    border-top: 1px solid $color-priority-light;
+    border-left: 1px solid $color-priority-light;
+    border-right: 1px solid $color-priority-dark;
+    border-bottom: 1px solid $color-priority-dark;
+    border-radius: 4px;
+}
+
+.nav-secondary {
+    padding: 2*$vspacer 3*$hspacer;
+    background-color: $color-secondary;
+    border-top: 1px solid $color-secondary-light;
+    border-left: 1px solid $color-secondary-light;
+    border-right: 1px solid $color-secondary-dark;
+    border-bottom: 1px solid $color-secondary-dark;
+    border-radius: 4px;
+}
+
+input {
+    margin: 2*$vspacer 2*$hspacer;
+    padding: 1.5*$vspacer 2*$hspacer;
+    border-radius: 4px;
+    display: block;
+    border-top: 1px solid lighten($color-primary, 65%);
+    border-left: 1px solid lighten($color-primary, 65%);
+    border-right: 1px solid lighten($color-primary, 60%);
+    border-bottom: 1px solid lighten($color-primary, 60%);
+}
+
+input.nav-search {
+  display: inline-block;
+  border-top: 1px solid $color-secondary-light;
+  border-left: 1px solid $color-secondary-light;
+  border-right: 1px solid $color-secondary-dark;
+  border-bottom: 1px solid $color-secondary-dark;
+}
+
+@mixin btn($color) {
+  border-radius: 4px;
+  transition: .3s;
+
+  &:hover {
+    background-color: lighten($color, 5%);
+    box-shadow: 1px 1px 3px $color-highlight;
+  }
+  &:active {
+    outline: none;
+    background-color: lighten($color, 8%);
+    box-shadow: 1px 1px 3px $color-highlight;
+    transform: translateY(3px) translateX(1px);
+    border-bottom: 1px solid lighten($color, 20%);
+    border-right: 1px solid lighten($color, 20%);
+    border-left: 1px solid darken($color, 10%);
+    border-top: 1px solid darken($color, 10%);
+
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+  @each $name, $color in ($bg-color-map) {
+    .button-#{$name} {
+      padding: 1.5*$vspacer 3*$hspacer;
+      font-weight: 500;
+      background-color: $color;
+      color: $color-white;
+      border-top: 1px solid lighten($color, 20%);
+      border-left: 1px solid lighten($color, 20%);
+      border-right: 1px solid darken($color, 10%);
+      border-bottom: 2px solid darken($color, 10%);
+
+      @include btn($color);
+    }
+
+    .button-small-ico-#{$name} {
+      padding: 1*$vspacer 1*$hspacer;
+      font-weight: 500;
+      background-color: $color;
+      color: $color-white;
+      font-size: $fontsize * .5;
+      border-top: 1px solid lighten($color, 20%);
+      border-left: 1px solid lighten($color, 20%);
+      border-right: 1px solid darken($color, 10%);
+      border-bottom: 1px solid darken($color, 10%);
+      border-radius: 4px;
+      vertical-align: top;
+    }
+  }
+
+.row {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.row.justify-left {
+  justify-content: flex-start;
+}
+
+.col-postit { 
+  display: inline-flex;
+  min-width: 60*$hspacer;
+  max-width: 60*$hspacer;
+  height: 60*$vspacer;
+  margin-right: 4*$vspacer;
+}
+
+.col-4 {
+  display: inline-flex;
+  width: 25%;
+  flex-basis: auto;
+  flex-direction: column;
+  height: 100%;
+  padding: 6*$vspacer;
+}
+
+.issue {
+  width: 100%;
+  height: 100%;
+  background-image: url(postit.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 4*$vspacer 6*$vspacer 8*$vspacer;
+}
+
+.issue.priority-1 {
+  background-image: url(postit.green.svg);
+}
+
+.issue.priority-5 {
+  background-image: url(postit.red.svg);
+}
+
+.issue div {
+  height: 100%;
+  overflow: hidden;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+.ml-auto {
+  margin-left: auto;
+}
+
+.ml-auto.indent {
+  margin-right: 30*$hspacer;
+}

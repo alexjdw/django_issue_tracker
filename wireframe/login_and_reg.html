@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <title>Login Portal: Yourcompany.com Issue Tracker by Alex</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <nav>
+    <a href="/" class="brand">Company</a>
+  </nav>
+  <main>
+    <form id="login" action="login" method="post">
+      <div class="col-4">
+        <label>Email
+          <input type="email" name="email">
+        </label>
+        <label>Password
+          <input type="password" name="password">
+        </label>
+      </div>
+      <div class="col-4">
+        <button class="button-secondary" type="submit">Log In</button>
+      </div>
+    </form>
+    <a href="#">Need to Register?</a>
+    <form id="register" action="register" method="post">
+      <div class="col-4">
+        <label>First Name
+          <input type="text" name="first_name">
+        </label>
+        <label>Last Name
+          <input type="text" name="last_name">
+        </label>
+        <label>Email (Work Contact)
+          <input type="email" name="email">
+        </label>
+        <label>Password
+          <input type="password" name="password">
+        </label>
+        <label>Confirm Password
+          <input type="password" name="confirm_password">
+        </label>
+        <label>Registration Key
+          <input type="text" name="registration_key">
+        </label> What's this? It's a key provided by your organization. Check your registration email for details.
+      </div>
+      <div class="col-4">
+        <button class="button-secondary" type="submit">Register</button>
+      </div>
+    </form>
+  </main>
+</body>
+
+</html>

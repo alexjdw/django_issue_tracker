@@ -1,0 +1,45 @@
+{% extends 'users/template.html' %}
+{% block title %}
+Login/Register:
+{% endblock %}
+
+{% block content %}
+    <form id="login" action="/u/login_submit" method="post">
+      {% csrf_token %}
+      <div class="col-4">
+        <label>Email
+          <input type="email" name="email">
+        </label>
+        <label>Password
+          <input type="password" name="password">
+        </label>
+        <button class="button-secondary" type="submit">Log In</button>
+      </div>
+    </form>
+    <a href="#" id="showreg">Need to Register? Click Here.</a>
+    <form id="register" action="/u/register_submit" method="post">
+      {% csrf_token %}
+      <div class="col-4">
+        <label>First Name
+          <input type="text" name="first_name">
+        </label>
+        <label>Last Name
+          <input type="text" name="last_name">
+        </label>
+        <label>Email (Work Contact)
+          <input type="email" name="email">
+        </label>
+        <label>Password
+          <input type="password" name="password">
+        </label>
+        <label>Confirm Password
+          <input type="password" name="confirm_password">
+        </label>
+        <label>Registration Key
+          <input type="text" name="registration_key">
+        </label>
+        What's this? It's a code provided by your organization. Check your registration email for details.
+        <button class="button-secondary" type="submit">Register</button>
+      </div>
+    </form>
+{% endblock %}

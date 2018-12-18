@@ -1,0 +1,408 @@
+$vspacer: 5px;
+$hspacer: $vspacer;
+$fontsize: 3*$vspacer;
+$font: $fontsize Roboto, Helvetica, sans-serif;
+$color-primary: #202C59;
+$color-primary-info: lighten($color-primary, 20%);
+$color-secondary: #0582CA;
+$color-secondary-light: lighten($color-secondary, 20%);
+$color-secondary-dark: darken($color-secondary, 10%);
+$color-black: #050517;
+$color-white: #F4F6F7;
+$color-off-white: darken($color-white, 5%);
+$color-highlight: #FE4E00;
+$color-priority: #F18805;
+$color-priority-light: lighten($color-priority, 10%);
+$color-priority-dark: darken($color-priority, 10%);
+$bg-color-map: (primary:$color-primary,
+                  secondary: $color-secondary,
+                  dark: $color-black, 
+                  highlight: $color-highlight, 
+                  priority: $color-priority);
+
+@import 'normalize';
+
+div, nav, main, ul, body {
+  box-sizing: border-box;
+  font: $font;
+  text-shadow: rgba(0,0,0,.01) 0 0 1px;
+}
+
+div, p, a, button, input, nav, li, h1, h2, h3, h4, h5, h6 {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+nav {
+    height: 16*$vspacer;
+    background-color: $color-primary;
+    color: $color-white;
+    padding: 0 4*$hspacer;
+    margin-bottom: 4*$vspacer;
+    display: flex;
+    align-items: center;
+    border-bottom: 1*$vspacer solid transparent;
+    border-image: linear-gradient(90deg, darken($color-primary, 5%) 0%,
+        lighten($color-primary, 7%) 15%,
+        $color-primary 40%,
+        darken($color-primary, 5%) 90%);
+    border-image-slice: 1;
+  }
+
+main {
+    color: $color-black;
+    font: inherit;
+    padding: 0 4*$hspacer;
+    max-width: 1366px;
+}
+
+a {
+  color: $color-secondary;
+  text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    color: inherit;
+}
+
+ul.inline-menu {
+  margin: 1*$vspacer;
+}
+
+ul.inline-menu,
+ul.inline-menu li,
+ul.inline-menu li a {
+    display: inline-block;
+    color: $color-white;
+    font-size: 4*$vspacer;
+}
+
+ul.inline-menu li a.nav {
+    padding: $vspacer * 2 $hspacer * 3;
+    margin-right: $hspacer * 2;
+    border-bottom: 4px solid $color-primary;
+    vertical-align: bottom;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+      background-color: lighten($color-primary, 5%);
+      border-bottom : 4px solid rgba(20,0,0,0.5);
+      border-radius : 2px;
+      box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.2);
+    }
+    &:active {
+      margin-top: 4px;
+      background-color: lighten($color-primary, 10%);
+      border-bottom : 1px solid rgba(20,0,0,0.5);
+    }
+}
+
+i {
+    color: inherit !important;
+    font-size: inherit !important;
+}
+
+li {
+    color: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin: .25em 0;
+}
+
+table {
+  width: 95%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 4*$vspacer;
+}
+
+thead tr {
+  background-color: lighten($color-highlight, 45%);
+}
+
+th, td {
+  padding: 2*$vspacer;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: lighten($color-white, 1%);
+}
+tbody tr:nth-child(odd) {
+  background-color: darken($color-white, 2%);
+}
+
+
+.brand {
+    font-size: 2 * $fontsize;
+    padding-right: 8 * $hspacer;
+    color: $color-white;
+}
+
+.issue-tracker-brand {
+    font-size: .50 * $fontsize;
+    line-height: 10px;
+}
+
+
+@each $name, $color in ($bg-color-map) {
+
+  .nav-#{$name} {
+      padding: 2*$vspacer 3*$hspacer;
+      background-color: $color-priority;
+      font-weight: 600;
+      border-top: 1px solid $color-priority-light;
+      border-left: 1px solid $color-priority-light;
+      border-right: 1px solid $color-priority-dark;
+      border-bottom: 1px solid $color-priority-dark;
+      border-radius: 4px;
+      vertical-align: bottom;
+      transition: all .2s ease-out;
+
+        &:hover {
+          text-shadow : 0px 0px 4px lighten($color, 10%);
+          background-color: lighten($color, 5%);
+        }
+        &:active {
+          margin-left: 1px;
+          background-color: darken($color, 5%);
+        }
+      }
+}
+
+// .nav-secondary {
+//     padding: 2*$vspacer 3*$hspacer;
+//     background-color: $color-secondary;
+//     border-top: 1px solid $color-secondary-light;
+//     border-left: 1px solid $color-secondary-light;
+//     border-right: 1px solid $color-secondary-dark;
+//     border-bottom: 1px solid $color-secondary-dark;
+//     border-radius: 4px;
+// }
+
+.nav {
+  padding: 2*$vspacer 3*$hspacer;
+}
+
+input {
+    margin: 2*$vspacer 2*$hspacer;
+    padding: 1.5*$vspacer 2*$hspacer;
+    border-radius: 4px;
+    display: block;
+    border-top: 1px solid lighten($color-primary, 65%);
+    border-left: 1px solid lighten($color-primary, 65%);
+    border-right: 1px solid lighten($color-primary, 60%);
+    border-bottom: 1px solid lighten($color-primary, 60%);
+}
+
+input.nav-search {
+  display: inline-block;
+  border-top: 1px solid $color-secondary-light;
+  border-left: 1px solid $color-secondary-light;
+  border-right: 1px solid $color-secondary-dark;
+  border-bottom: 1px solid $color-secondary-dark;
+}
+
+@mixin btn($color) {
+  border-radius: 6px;
+  transition: .1s;
+
+  &:hover {
+    background-color: lighten($color, 5%);
+    box-shadow: 1px 1px 4px lighten($color-highlight, 30%);
+  }
+  &:active {
+    outline: none;
+    background-color: lighten($color, 8%);
+    box-shadow: 0px 0px 2px $color-highlight;
+    transform: translateY(3px) translateX(1px);
+    border-bottom: 1px solid lighten($color, 20%);
+    border-right: 1px solid lighten($color, 20%);
+    border-left: 1px solid darken($color, 10%);
+    border-top: 1px solid darken($color, 10%);
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+  @each $name, $color in ($bg-color-map) {
+    .button-#{$name} {
+      padding: 1.5*$vspacer 3*$hspacer;
+      font-weight: 500;
+      background-color: $color;
+      color: $color-white;
+      border-top: 1px solid lighten($color, 20%);
+      border-left: 1px solid lighten($color, 20%);
+      border-right: 1px solid darken($color, 10%);
+      border-bottom: 2px solid darken($color, 10%);
+
+      @include btn($color);
+    }
+
+    .button-ico-#{$name} {
+      width: 3em !important;
+      height: 3em !important;
+      padding: .5em;
+      font-weight: 500;
+      box-sizing: border-box;
+      background-color: $color;
+      color: $color-white;
+      border-top: 1px solid lighten($color, 20%);
+      border-left: 1px solid lighten($color, 20%);
+      border-right: 1px solid darken($color, 10%);
+      border-bottom: 2px solid darken($color, 10%);
+
+      @include btn($color);
+    }
+
+    .button-small-ico-#{$name} {
+      padding: 1*$vspacer 1*$hspacer;
+      font-weight: 500;
+      background-color: $color;
+      color: $color-white;
+      font-size: $fontsize * .5;
+      border-top: 1px solid lighten($color, 20%);
+      border-left: 1px solid lighten($color, 20%);
+      border-right: 1px solid darken($color, 10%);
+      border-bottom: 1px solid darken($color, 10%);
+      vertical-align: top;
+
+      @include btn($color);
+    }
+
+    .button-grid-ico-#{$name} {
+      font-weight: 500;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 0px darken($color, 10%);
+      background-color: $color;
+      color: $color-white;
+      width: 75%;
+      height: 75%;
+      border-top: 2px solid lighten($color, 20%);
+      border-left: 2px solid lighten($color, 20%);
+      border-right: 2px solid darken($color, 10%);
+      border-bottom: 2px solid darken($color, 10%);
+      vertical-align: top;
+
+      @include btn($color);
+    }
+  }
+
+.issues-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 250px);
+  grid-template-rows: 250px;
+  grid-column-gap: $hspacer;
+  grid-row-gap: $vspacer;
+}
+
+.informative-grid {
+  display: inline-grid;
+  grid-template-columns: repeat(8, 72px);
+  grid-template-rows: repeat(3, 72px);
+  grid-template-areas: "postit postit postit info info info info info"
+                       "postit postit postit info info info info info"
+                       "postit postit postit b1 b2 footer footer footer";
+  grid-column-gap: $hspacer;
+  grid-row-gap: $vspacer;
+}
+
+.grid-postit {
+  grid-area: postit;
+}
+
+.grid-info { 
+  padding-top: $vspacer;
+  grid-area: info;
+  overflow-y: hidden;
+  height: 100%
+}
+
+.grid-info h4 {
+  display: inline-block;
+  width: 60%;
+}
+
+.grid-info em {
+  display: inline-block;
+  margin-left: auto;
+  color: desaturate(lighten($color-black, 50%), 50%);
+}
+
+.grid-info-footer {
+  grid-area: footer;
+  color: desaturate(lighten($color-black, 50%), 50%);
+}
+
+.grid-info-b1 {
+  grid-area: b1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.grid-info-b2 {
+  grid-area: b2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.grid-info-pic {
+  grid-area: "pic";
+}
+
+@each $num in 1 2 3 4 5 6 {
+  .grid-#{$num} {
+    grid-column-start: #{$num}
+  }
+}
+
+.issue {
+  width: 100%;
+  height: 100%;
+  background-image: url(/static/img/postit.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 6*$vspacer 6*$hspacer 8*$vspacer;
+}
+
+.issue.priority-1 {
+  background-image: url(/static/img/postit.green.svg);
+}
+
+.issue.priority-5 {
+  background-image: url(/static/img/postit.red.svg);
+}
+
+.issue-inner {
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Kalam', cursive;
+}
+
+.issue div h4 {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2em;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.ml-auto.indent {
+  margin-right: 30*$hspacer;
+}
+
+.indent {
+  margin-left: 30*$hspacer;
+}

@@ -1,0 +1,49 @@
+{% extends 'issues/template.html' %}
+{% block title %}
+Issue {{ issueno }}:
+{% endblock title %}
+
+{% block content %}
+  <main>
+    <div class="row">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-postit">
+            <div class="issue priority-{{ issue.priority }}">
+              <div class="issue-inner">
+              <h4>{{ issue.title }}</h4>
+              {{ issue.short }}
+              </div>
+            </div>
+          </div>
+          <div class="col-8">
+            <p>Reported by: {{ issue.creator.first_name}} {{issue.creator.last_name}}</p>
+            <p>Issue Since: {{ issue.created_on }}</p>
+            <p>Priority: <span class="prio-5">{{ issue.priority }}</span></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h3>Issue Details</h3>
+            {{ issue.desc }}
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="log">
+          <h3>
+            Log
+          </h3>
+          {% for log in issue.log_entries.all %}
+            <h5>{{ log.creator.first_name }}</h5>
+            <p><em>on {{ log.created_on }}</em></p>
+            <p>{{ log.entry }}</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="indent">
+      <button class="button-large-ico-secondary" hovertxt="Watch issue."><i class="fas fa-eye"></i></button>
+      <button class="button-large-ico-highlight" hovertxt="Take ownership of issue."><i class="fas fa-lock"></i></button>
+    </div>
+{% endblock content %}
