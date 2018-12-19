@@ -17,14 +17,29 @@ def my_issues(request):
 
 @login_required
 def priority_issues(request):
-    return render(request, 'issues/priority_issues.html')
+    return render(request, 'issues/all_issues.html')
 
 
 @login_required
-def issue(request, issueno):
-    try:
-        issue = Issue.objects.get(id=issueno)
-    except ObjectDoesNotExist:
-        return redirect('/issues/all')
+def team_issues(request):
+    return render(request, 'issues/team_issues.html')
+
+
+@login_required
+def issue(request, slug, issueno):
+    # try:
+    #     issue = Issue.objects.get(id=issueno)
+    # except ObjectDoesNotExist:
+    #     return redirect('/issues/all')
 
     return render(request, 'issues/issue.html', {'issue': issue})
+
+
+@login_required
+def create_issue(request):
+    return redirect(request, 'issues/priority_issues.html')
+
+
+@login_required
+def create_form(request):
+    return render(request, "issues/create.html")

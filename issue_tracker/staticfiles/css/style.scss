@@ -28,7 +28,7 @@ div, nav, main, ul, body {
   text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
 
-div, p, a, button, input, nav, li, h1, h2, h3, h4, h5, h6 {
+div, p, a, button, input, textarea, nav, li, h1, h2, h3, h4, h5, h6 {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -187,7 +187,14 @@ tbody tr:nth-child(odd) {
   padding: 2*$vspacer 3*$hspacer;
 }
 
-input {
+div.form-container {
+  vertical-align: top;
+  display: inline-block;
+  width: 40%;
+}
+
+input, textarea {
+    width: 80%;
     margin: 2*$vspacer 2*$hspacer;
     padding: 1.5*$vspacer 2*$hspacer;
     border-radius: 4px;
@@ -198,12 +205,33 @@ input {
     border-bottom: 1px solid lighten($color-primary, 60%);
 }
 
+textarea {
+  height: 4em;
+}
+
+div.inline {
+  display: inline-block;
+}
+
 input.nav-search {
+  width: 12em;
   display: inline-block;
   border-top: 1px solid $color-secondary-light;
   border-left: 1px solid $color-secondary-light;
   border-right: 1px solid $color-secondary-dark;
   border-bottom: 1px solid $color-secondary-dark;
+}
+
+input#category {
+  width: 80%;
+  vertical-align: top;
+  display: inline-block;
+}
+
+input#severity {
+  width: auto;
+  vertical-align: top;
+  display: inline-block;
 }
 
 @mixin btn($color) {
@@ -300,6 +328,26 @@ input.nav-search {
   grid-row-gap: $vspacer;
 }
 
+.single-issue-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 160px);
+  grid-template-rows: 160px 160px;
+  grid-column-gap: $hspacer;
+  grid-row-gap: $vspacer;
+  grid-template-areas: "postit postit info info info info log log"
+                       "postit postit info info info info log log";
+}
+
+.createform-grid {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 240px);
+  grid-template-rows: repeat(2, 240px);
+  grid-template-areas: "postit info"
+                       "footer footer";
+  grid-column-gap: $hspacer;
+  grid-row-gap: $vspacer;
+}
+
 .informative-grid {
   display: inline-grid;
   grid-template-columns: repeat(8, 72px);
@@ -315,11 +363,17 @@ input.nav-search {
   grid-area: postit;
 }
 
+.grid-log {
+  grid-area: log;
+  background-color: desaturate(lighten($color-black, 90%), 35%);
+  padding: 1em 2em;
+}
+
 .grid-info { 
   padding-top: $vspacer;
   grid-area: info;
   overflow-y: hidden;
-  height: 100%
+  height: 100%;
 }
 
 .grid-info h4 {
@@ -370,6 +424,19 @@ input.nav-search {
   background-repeat: no-repeat;
   background-size: cover;
   padding: 6*$vspacer 6*$hspacer 8*$vspacer;
+  transition: all .1s linear;
+
+  &.hover {
+    cursor: pointer;
+    width: 101%;
+    height:101%;
+  }
+
+  &.active {
+    cursor: grabbing;
+    width: 99%;
+    height: 99%;
+  }
 }
 
 .issue.priority-1 {
@@ -405,4 +472,19 @@ input.nav-search {
 
 .indent {
   margin-left: 30*$hspacer;
+}
+
+
+div.ui-widget {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.ui-menu-item, .ui-menu-item-wrapper {
+  font-size: 4*$vspacer;
+}
+
+.ui-state-highlight {
+  background-color: $color-secondary;
 }

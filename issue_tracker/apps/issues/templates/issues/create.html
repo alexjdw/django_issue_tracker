@@ -1,0 +1,36 @@
+{% extends 'issues/template.html' %} {% block title %} Create Issue: {% endblock %} {% block content %}
+<div class="form-container">
+  <form action="tango-1">
+    <div class="inline">
+      Category<br>
+      <input id="category" type="text" name="category">
+    </div>
+    <div class="inline">
+      Severity<br>
+      <input id="severity" type="text" size="1" name="severity">
+    </div>
+    <br>
+
+    Issue Description
+    <textarea id="desc" type="text" name="desc" placeholder="Provide as many details as possible. Try to answer the basic five: Who, What, When, Where, and Why."></textarea> Post-it
+    <textarea id="shortdesc" name="shortdesc" placeholder="Enter a post-it size description of the issue."></textarea> Notify
+    <input type="text" placeholder="Type names and press enter to add notifications.">
+    <button type="submit" class="button-secondary">Submit</button>
+  </form>
+</div>
+<div class="form-container">
+  <div class="createform-grid">
+    <div class="grid-postit">
+      <div class="issue">
+        <div class="issue-inner">
+        </div>
+      </div>
+    </div>
+    <div class="grid-info">
+    </div>
+    <div class="grid-footer">
+    </div>
+  </div>
+
+</div>
+{% endblock content %}

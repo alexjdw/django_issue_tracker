@@ -27,7 +27,12 @@
     <ul class="inline-menu">
       <li>
         <form>
-          <input class="nav-search" type="text"><button class="button-secondary"><i class="fas fa-search"></i></button>
+          <div class="ui-widget">
+            <input class="nav-search" type="text">
+          </div>
+          <button class="button-secondary">
+            <i class="fas fa-search"></i>
+          </button>
         </form>
       </li>
       <li>
@@ -40,6 +45,7 @@
   <main>
     {% block content %} {% endblock %}
   </main>
+  {% include 'jsimports.html' %}
 </body>
 
 </html>
