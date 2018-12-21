@@ -5,41 +5,44 @@
   <title>{% block title %}{% endblock %} Yourcompany.com Issue Tracker by Alex</title>
   {% include 'imports.html' %}
 </head>
-
-
 <body>
   <nav>
-    <a href="/" class="brand"><i class="fas fa-dragon"></i></a>
-    <ul class="inline-menu mr-auto">
-      <li>
-        <a class="nav" href="/issues/all">Open Issues</a>
+    <div class="expand lg-hide xl-hide">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul>
+      <li class="sm-hide md-hide">
+        <a href="/" class="brand"><i class="fas fa-dragon insetshadowed"></i></a>
       </li>
-      <li>
-        <a class="nav" href="/issues/my">My Issues</a>
-      </li>
-      <li>
-        <a class="nav" href="/issues/team">Team</a>
-      </li>
-      <li>
-        <a href="/issues/all/priority" class="nav-priority">Priority</a>
-      </li>
-    </ul>
-    <ul class="inline-menu">
-      <li>
-        <form>
-          <div class="ui-widget">
-            <input class="nav-search" type="text">
-          </div>
-          <button class="button-secondary">
-            <i class="fas fa-search"></i>
-          </button>
-        </form>
-      </li>
-      <li>
-        <a href="#">
-          <p class="issue-tracker-brand">Issue<br>Tracker</p>
-        </a>
-      </li>
+      <ul class="collapse">
+        <li>
+          <a href="/issues/all">Open Issues</a>
+        </li>
+        <li>
+          <a href="/issues/my">My Issues</a>
+        </li>
+        <li>
+          <a href="/issues/team">Team</a>
+        </li>
+        <li>
+          <a href="/issues/all/priority" class="nav nav-priority">Priority</a>
+        </li>
+        <li class="nav-right">
+          <form>
+            <div class="ui-widget">
+              <input class="nav-search" type="text">
+            </div>
+            <button class="button-secondary">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </li>
+        <li class="sm-hide md-hide">
+          <a href="#">
+            <p class="tiny">Issue<br>Tracker</p>
+          </a>
+        </li>
+      </ul>
     </ul>
   </nav>
   <main>

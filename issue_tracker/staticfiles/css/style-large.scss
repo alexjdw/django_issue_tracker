@@ -1,0 +1,59 @@
+@media screen and (min-width: 900px) {
+  html {
+    font-size: 18px;
+  }
+
+  main {
+    max-width: 1366px;
+  }
+  .lg-hide {
+    display: none;
+  }
+
+  .single-issue-grid {
+    display: grid;
+    grid-template-columns: 300px auto 33%;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "postit info log"
+      "footer footer log";
+  }
+
+  .issue {
+    width: 250px;
+    height: 250px;
+    font-size: 1.2rem;
+  }
+
+  @media screen and (max-width: 1370px) {
+    .lg-hide {
+      display: none;
+    }
+  }
+  
+  nav ul li {
+    padding: 1.25rem;
+  }
+
+  nav ul .collapse li {
+    padding: 1.25rem;
+  }
+
+  nav ul, nav ul .collapse {
+    display: flex;
+    width: 100%;
+    max-width: 1366px;
+  }
+
+  nav ul .collapse li {
+    display: inline-block;
+  }
+  nav ul li {
+    display: inline-block;
+  }
+
+  .nav-right {
+    margin-left: auto;
+
+  }
+}

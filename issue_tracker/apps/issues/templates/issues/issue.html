@@ -4,7 +4,6 @@ Issue {{ issueno }}:
 {% endblock title %}
 
 {% block content %}
-  <main>
     <div class="single-issue-grid">
       <div class="issue priority-{{ issue.priority }} grid-postit">
         <div class="issue-inner">
@@ -14,10 +13,12 @@ Issue {{ issueno }}:
       </div>
       <div class="grid-info">
         <br>
-        <p>Reported by: {{ issue.creator.first_name}} {{issue.creator.last_name}}</p>
-        <p>Issue Since: {{ issue.created_on }}</p>
-        <p>Priority: <span class="prio-5">{{ issue.priority }}</span></p>
+        <p>Reported by: {{ issue.creator.first_name}} {{issue.creator.last_name}} Tim Tommy</p>
+        <p>Issue Since: {{ issue.created_on }} 5/15/2012</p>
+        <p>Priority: <span class="prio-5">{{ issue.priority }} 5</span></p>
         <br>
+      </div>
+      <div class="grid-footer">
         <h3>Issue Details</h3>
         {{ issue.desc|default:"Issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details " }}
       </div>
@@ -25,6 +26,9 @@ Issue {{ issueno }}:
         <h3>
           Log
         </h3>
+        <h4>Stevie B.</h4>
+          <p><em>on 2/10/22</em></p>
+          <p>Hey guys I was bugging about this bug then a bug flew into my bunker that I dug. I didn't realize it now it's hiding under the rug.</p>
         {% for log in issue.log_entries.all %}
           <h4>{{ log.creator.first_name }}</h4>
           <p><em>on {{ log.created_on }}</em></p>

@@ -14,4 +14,17 @@ $(document).ready(function() {
             }
         }
     });
+
+    $('nav div.expand i').on("click", function(e) {
+        console.log("clicked");
+        $('.collapse').slideToggle();
+    });
+
+    $('tbody tr').on('click', function(e) {
+        if (e.target.tagName == 'BUTTON' || e.target.tagName == 'a') {
+            return;
+        }
+        $(this).toggleClass('selected');
+        $(this).find('button.hide').animate({width: 'toggle', height: 'toggle', padding: 'toggle', margin: 'toggle', border: 'toggle'});
+    });
 });
