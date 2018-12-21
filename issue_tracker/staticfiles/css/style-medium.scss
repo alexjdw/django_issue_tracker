@@ -3,6 +3,15 @@
     font-size: 20px;
   }
 
+  .createform-grid {
+    display: grid;
+    grid-template-columns: 50% auto;
+    grid-template-rows: auto 200px;
+    grid-template-areas:
+      "postit info"
+      "footer footer";
+  }
+
   .single-issue-grid {
     display: grid;
     grid-template-columns: 50% auto;
@@ -10,7 +19,12 @@
     grid-template-areas:
       "postit info"
       "footer footer"
-      "log log";
+      "";
+  }
+
+  .issues-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
   }
 
   .issue {
@@ -18,7 +32,18 @@
     height: 280px;
     font-size: 1.2em;
   }
-    
+
+  div.md-inline {
+    display: inline-block;
+  }
+
+  @each $key, $size in (10: 10%, 25: 25%, 50: 50%, 75: 75%) {
+    div.md-inline-#{$key} {
+      display: inline-block;
+      width: #{$size};
+    }
+  }
+
   @media screen and (max-width: 899.5px) {
     .md-hide {
       display: none;

@@ -14,7 +14,22 @@ p, h1, h2, h3, h4, h5, h6 {
 
 // JQeury
 .ui-widget {
-  display: inline-block;
+  display: inline;
+}
+
+.hide {
+  display: none;
+}
+
+button {
+  padding: .25em;
+  background-color: inherit;
+  border: 1px solid rgb(7, 175, 231);
+  border-radius: 8px;
+  color: darkslategray;
+}
+.sm-show {
+  display: none;
 }
 
 // ** Mobile styling **
@@ -44,13 +59,30 @@ nav div.expand {
 }
 
 nav ul .collapse li {
-  padding: .2em 1em 0 1em;
+  padding: .2em 1em;
 }
 
 @media screen and (max-width: 600px) {
   .sm-hide {
     display: none;
   }
+  .sm-show {
+    display: inline;
+  }
+  td {
+    display: block;
+    width: 100%;
+  }
+  th {
+    display: none;
+  }
+}
+
+.nav-search {
+  width: 75%;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
 }
 
 main {
@@ -68,6 +100,7 @@ main {
     grid-area: #{$area};
   }
 }
+
 .grid-info {
   grid-area: info;
 }
@@ -84,6 +117,22 @@ main {
   grid-area: log;
 }
 
+input, textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: .25em;
+  margin: .25em 0;
+}
+
+textarea {
+  height: 4em;
+}
+
+tr.selected {
+  background-color: rgb(231, 247, 253);
+}
+
 .issue {
   background-image: url('/static/img/postit-3.svg');
   background-size: cover;
@@ -93,7 +142,7 @@ main {
   width: 280px;
   height: 280px;
   font-size: .8em;
-  padding: 1.8rem 1rem 1rem;
+  padding: 1.8rem 1rem 1.8rem;
   box-sizing: border-box;
 }
 
@@ -115,7 +164,9 @@ main {
 }
 
 div.issue-inner {
-  font: .8em "Indie Flower", "Dekko", sans-serif; 
+  font: .8em "Indie Flower", "Dekko", sans-serif;
+  height: 100%;
+  overflow-y: hidden; 
 }
 
 div.issue-inner h4 {

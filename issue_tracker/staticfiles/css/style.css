@@ -348,7 +348,23 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .ui-widget {
-  display: inline-block;
+  display: inline;
+}
+
+.hide {
+  display: none;
+}
+
+button {
+  padding: 0.25em;
+  background-color: inherit;
+  border: 1px solid #07afe7;
+  border-radius: 8px;
+  color: darkslategray;
+}
+
+.sm-show {
+  display: none;
 }
 
 html {
@@ -376,14 +392,34 @@ nav div.expand {
 }
 
 nav ul .collapse li {
-  padding: 0.2em 1em 0 1em;
+  padding: 0.2em 1em;
 }
 
 @media screen and (max-width: 600px) {
   .sm-hide {
     display: none;
   }
+
+  .sm-show {
+    display: inline;
+  }
+
+  td {
+    display: block;
+    width: 100%;
+  }
+
+  th {
+    display: none;
+  }
 }
+.nav-search {
+  width: 75%;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
 main {
   padding: 0.25rem 1rem 0;
 }
@@ -425,6 +461,22 @@ main {
   grid-area: log;
 }
 
+input, textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.25em;
+  margin: 0.25em 0;
+}
+
+textarea {
+  height: 4em;
+}
+
+tr.selected {
+  background-color: #e7f7fd;
+}
+
 .issue {
   background-image: url("/static/img/postit-3.svg");
   background-size: cover;
@@ -434,7 +486,7 @@ main {
   width: 280px;
   height: 280px;
   font-size: 0.8em;
-  padding: 1.8rem 1rem 1rem;
+  padding: 1.8rem 1rem 1.8rem;
   box-sizing: border-box;
 }
 
@@ -454,6 +506,8 @@ main {
 }
 div.issue-inner {
   font: 0.8em "Indie Flower", "Dekko", sans-serif;
+  height: 100%;
+  overflow-y: hidden;
 }
 
 div.issue-inner h4 {
@@ -470,17 +524,53 @@ div.issue-inner h4 {
     font-size: 20px;
   }
 
+  .createform-grid {
+    display: grid;
+    grid-template-columns: 50% auto;
+    grid-template-rows: auto 200px;
+    grid-template-areas: "postit info" "footer footer";
+  }
+
   .single-issue-grid {
     display: grid;
     grid-template-columns: 50% auto;
     grid-template-rows: auto auto auto;
-    grid-template-areas: "postit info" "footer footer" "log log";
+    grid-template-areas: "postit info" "footer footer" "";
+  }
+
+  .issues-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
   }
 
   .issue {
     width: 280px;
     height: 280px;
     font-size: 1.2em;
+  }
+
+  div.md-inline {
+    display: inline-block;
+  }
+
+  div.md-inline-10 {
+    display: inline-block;
+    width: 10%;
+  }
+
+  div.md-inline-25 {
+    display: inline-block;
+    width: 25%;
+  }
+
+  div.md-inline-50 {
+    display: inline-block;
+    width: 50%;
+  }
+
+  div.md-inline-75 {
+    display: inline-block;
+    width: 75%;
   }
 }
 @media screen and (min-width: 600px) and (max-width: 899.5px) {
@@ -513,10 +603,15 @@ div.issue-inner h4 {
     height: 250px;
     font-size: 1.2rem;
   }
+
+  .issues-grid {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+  }
 }
-@media screen and (min-width: 900px) and (max-width: 1370px) {
-  .lg-hide {
-    display: none;
+@media screen and (min-width: 900px) and (max-width: 1050px) {
+  .issues-grid {
+    grid-template-columns: 33% 33% 33% !important;
   }
 }
 @media screen and (min-width: 900px) {
@@ -549,6 +644,19 @@ div.issue-inner h4 {
 @media screen and (min-width: 900px) {
   .nav-right {
     margin-left: auto;
+  }
+}
+@media screen and (min-width: 900px) {
+  .form-preview, .form-container {
+    display: inline-block;
+    vertical-align: top;
+    width: 45%;
+    margin: 1.25%;
+  }
+}
+@media screen and (min-width: 900px) and (max-width: 1370px) {
+  .lg-hide {
+    display: none;
   }
 }
 

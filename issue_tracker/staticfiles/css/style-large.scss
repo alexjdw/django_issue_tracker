@@ -6,6 +6,7 @@
   main {
     max-width: 1366px;
   }
+  
   .lg-hide {
     display: none;
   }
@@ -25,9 +26,14 @@
     font-size: 1.2rem;
   }
 
-  @media screen and (max-width: 1370px) {
-    .lg-hide {
-      display: none;
+  .issues-grid {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+  }
+
+  @media screen and (max-width: 1050px) {
+    .issues-grid {
+      grid-template-columns: 33% 33% 33% !important;
     }
   }
   
@@ -55,5 +61,18 @@
   .nav-right {
     margin-left: auto;
 
+  }
+
+  .form-preview, .form-container {
+    display: inline-block;
+    vertical-align: top;
+    width: 45%;
+    margin: 1.25%;
+  }
+
+  @media screen and (max-width: 1370px) {
+    .lg-hide {
+      display: none;
+    }
   }
 }

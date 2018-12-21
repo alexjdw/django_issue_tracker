@@ -1,11 +1,14 @@
-{% extends 'issues/template.html' %} {% block title %} Create Issue: {% endblock %} {% block content %}
+{% extends 'issues/template.html' %} {% load static %}
+{% block title %} Create Issue: 
+{% endblock %}
+{% block content %}
 <div class="form-container">
-  <form action="tango-1">
-    <div class="inline">
+  <form action="/issues/create" method="POST">
+    <div id="" class="md-inline-75">
       Category<br>
       <input id="category" type="text" name="category">
     </div>
-    <div class="inline">
+    <div class="md-inline-10">
       Severity<br>
       <input id="severity" type="text" size="1" name="severity">
     </div>
@@ -18,14 +21,11 @@
     <button type="submit" class="button-secondary">Submit</button>
   </form>
 </div>
-<div class="form-container">
+<div class="form-preview sm-hide">
   <div class="createform-grid">
-    <div class="grid-postit">
-      <div class="issue">
-        <img class="postit" src="{% static 'img/postit-3.svg' %}">
-        <div class="issue-inner">
-            <h4>-###</h4>
-        </div>
+    <div class="issue grid-postit">
+      <div class="issue-inner">
+        <h4>-###</h4>
       </div>
     </div>
     <div class="grid-info">

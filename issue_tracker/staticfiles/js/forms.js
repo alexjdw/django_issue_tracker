@@ -22,22 +22,24 @@ $(document).ready(function() {
         }
     });
 
-    $('textarea#shortdesc, textarea#desc, input#severity, input#category').keyup(function(e) {
+    $('#shortdesc, #desc, #severity, #category').keyup(function(e) {
         console.log(e);
         $('.issue-inner').html(
-            '<h4>' + $('#category').val() + '-###</h4>'
+            '<h4>'
+            + $('#category').val()
+            + '-###</h4>'
             + $('#shortdesc').val()
             );
-        var sev = '<div class="sev">?</div>';
+        var sev = '?';
         if ($('#severity').val().length > 0) {
-            sev = '<div class="sev">' + $('#severity').val() + '</div>'
+            sev = $('#severity').val();
         }
         $('.grid-info').html(
-            sev + '<p>Created By: Username<br>Created: <em>Now</em><br>Updated: <em>Now</em></p>'
+            '<div class="sev">' 
+            + sev 
+            + '</div><p>Created By: Username<br>Created: <em>Now</em><br>Updated: <em>Now</em></p>'
         );
-        $('grid-footer').html(
-            '<h4>Issue Details</h4>' + $('#desc').val().replace('\n', '<br>')
-        )
+        $('grid-footer').html('<h4>Issue Details</h4>' + $('#desc').val());
     });
     
     $('input#notifications').keypress(function(e) {
