@@ -11,28 +11,32 @@ def login_page(request):
 
 
 def register_submit(request):
-    '''Handles the POST request for the registration form.'''
+    '''Handles the POST request for the new user registration form.'''
     if request.method != "POST":
-        return redirect(login)
+        return redirect(login_page)
 
-    new_user = User.objects.create_user(username=request.POST['email'], email=request.POST['email'], password=request.POST['password'])
-    new_user = authenticate(request, username=new_user.username, password=new_user.password)
+    print(request.POST)
+    new_user = User.objects.create_user(first_name=request.POST['first_name'],
+                    last_name=request.POST['last_name'],
+                    username=request.POST['email'],
+                    email=request.POST['email'],
+                    password=request.POST['password'])
+    new_user = authenticate(request, username=new_user.username, password=request.POST['password'])
     if new_user is not None:
         login(request, new_user)
+        return redirect('/issues/all')
     else:
-        return redirect(login)
-
-    return redirect('/issues/all')
+        return redirect(login_page)
 
 
 def login_submit(request):
-    '''Handles the POST request for the login form.'''
+    '''Handles the POST request for the new user login form.'''
     if request.method != "POST":
-        return redirect(login)
+        return redirect(login_page)
 
     new_user = authenticate(request, username=request.POST['email'], password=request.POST['password'])
     if new_user is not None:
         login(request, new_user)
     else:
-        redirect(login)
+        redirect(login_page)
     return redirect('/issues/all')

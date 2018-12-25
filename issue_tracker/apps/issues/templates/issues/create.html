@@ -4,6 +4,7 @@
 {% block content %}
 <div class="form-container">
   <form action="/issues/create" method="POST">
+    {% csrf_token %}
     <div id="" class="md-inline-75">
       Category<br>
       <input id="category" type="text" name="category">
