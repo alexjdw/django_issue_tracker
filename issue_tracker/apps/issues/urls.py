@@ -8,6 +8,10 @@ urlpatterns = [
     url(r'^team$', views.team_issues),
     url(r'^new$', views.create_form),
     url(r'^create$', views.create_form_submit),
+    url(r'^(?P<category>[a-zA-Z]+)-(?P<issueno>[0-9]+)/log$', views.add_to_log),
+    url(r'^(?P<issueno>[0-9]+)/log$', views.add_to_log),
+    url(r'^(?P<issueno>[0-9]+)/own$', views.own_issue),
+    url(r'^(?P<issueno>[0-9]+)/join$', views.join_issue),
     url(r'^(?P<category>[a-zA-Z]+)-(?P<issueno>[0-9]+)$', views.issue),
     url(r'^(?P<issueno>[0-9]+)$', views.issue)
 ]

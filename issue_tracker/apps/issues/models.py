@@ -5,6 +5,12 @@ from apps.users.models import User
 class Category(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+    
+    def __repr__(self):
+        return f"Category Object: <name: {self.name}>"
+
 
 class IssueManager(models.Manager):
     def validate_and_create(self, post, creator):
@@ -66,6 +72,9 @@ class Issue(models.Model):
             updated_on=issue.updated_on,
             )
 
+    def __repr__(self):
+        return f"Issue Object: <{self.category.name}-{self.issue} {self.created_on}>"
+
 
 class ResolvedIssue(Issue):
     @classmethod
@@ -81,6 +90,9 @@ class ResolvedIssue(Issue):
             created_on=issue.created_on,
             updated_on=issue.updated_on,
             )
+
+    def __repr__(self):
+        return f"Resolved Issue Object: <{self.category.name}-{self.issue} {self.created_on}>"
 
 
 class IssueLogEntry(models.Model):

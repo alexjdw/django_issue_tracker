@@ -1,8 +1,37 @@
 // Constants
 var autocomplete_lists = new Object();
-// Development test data constants
-autocomplete_lists[".nav-search"] = ["django-", "server-", "sandbox-", "test-", "production-", "aws-", "python-", "timesheets-", "java-", "spring-", "flask-"].sort();
-autocomplete_lists["#category"] = ["django", "server", "sandbox", "test", "production", "aws", "python", "timesheets", "java", "spring", "flask"].sort();
+
+$.getJSON(
+    '/api/categories?format=json',
+    function(json) {
+        autocomplete_lists['.nav-search'] = [];
+        autocomplete_lists['#category'] = [];
+
+        $.each(json, function(item) {
+            console.log(json[item]);
+            autocomplete_lists['.nav-search'].push(json[item].name);
+            autocomplete_lists['#category'].push(json[item].name);
+        });
+        console.log(autocomplete_lists);
+        Object.keys(autocomplete_lists).forEach(function(key) {
+            $(key).autocomplete({
+                source: autocomplete_lists[key],
+                autoFocus: true,
+            });
+        });
+    });
+
+
+$.getJSON(
+    '/api/users/?format=json',
+    function(json) {
+        console.log(json)
+        json.each(function(item) {
+            autocomplete_lists['.search-users'].push(
+                json[item].first_name + ' ' + json[item].last_name + ' ' + json[item.email]);
+        });
+    });
+
 
 $(document).ready(function() {
     $("#severity").on("keyup keydown", function(e) {
@@ -23,7 +52,6 @@ $(document).ready(function() {
     });
 
     $('#shortdesc, #desc, #severity, #category').keyup(function(e) {
-        console.log(e);
         $('.issue-inner').html(
             '<h4>'
             + $('#category').val()
@@ -41,15 +69,8 @@ $(document).ready(function() {
         );
         $('grid-footer').html('<h4>Issue Details</h4>' + $('#desc').val());
     });
-    
+
     $('input#notifications').keypress(function(e) {
         console.log(e);
-    });
-
-    Object.keys(autocomplete_lists).forEach(function(key) {
-        $(key).autocomplete({
-            source: autocomplete_lists[key],
-            autoFocus: true,
-        });
     });
 });

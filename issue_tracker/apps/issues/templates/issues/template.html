@@ -35,7 +35,7 @@
             <div class="ui-widget">
               <input class="nav-search" name="nav-search" type="text">
             </div>
-            <button class="button-secondary">
+            <button class="light">
               <i class="fas fa-search"></i>
             </button>
           </form>
@@ -49,6 +49,7 @@
     </ul>
   </nav>
   <main>
+    {% include 'errors.html' %}
     {% block content %} {% endblock %}
   </main>
   {% include 'jsimports.html' %}

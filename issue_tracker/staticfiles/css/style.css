@@ -355,12 +355,113 @@ p, h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
+body {
+  background-color: #f8f9f6;
+}
+
 button {
-  padding: 0.25em;
+  padding: 0.25rem;
   background-color: inherit;
-  border: 1px solid #07afe7;
+  border: 0;
   border-radius: 8px;
-  color: darkslategray;
+  transition: all 0.2s ease-in-out;
+}
+
+input, textarea {
+  padding: 0.5rem;
+  border: 0;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+button.primary {
+  border-top: 1px solid #6dadb2;
+  border-left: 1px solid #6dadb2;
+  border-right: 1px solid #51959a;
+  border-bottom: 1px solid #6dadb2;
+  background-color: #5CA4A9;
+}
+button.primary:hover {
+  background-color: #51959a;
+  border-top-color: #5ca4a9;
+  border-left-color: #5ca4a9;
+  border-right-color: #498589;
+  border-bottom-color: #498589;
+}
+
+button.warning {
+  border-top: 1px solid #f07f71;
+  border-left: 1px solid #f07f71;
+  border-right: 1px solid #ea5543;
+  border-bottom: 1px solid #f07f71;
+  background-color: #ED6A5A;
+}
+button.warning:hover {
+  background-color: #ea5543;
+  border-top-color: #ed6a5a;
+  border-left-color: #ed6a5a;
+  border-right-color: #e8402c;
+  border-bottom-color: #e8402c;
+}
+
+button.grey {
+  border-top: 1px solid #637c8b;
+  border-left: 1px solid #637c8b;
+  border-right: 1px solid #4d626d;
+  border-bottom: 1px solid #637c8b;
+  background-color: #586F7C;
+}
+button.grey:hover {
+  background-color: #4d626d;
+  border-top-color: #586f7c;
+  border-left-color: #586f7c;
+  border-right-color: #43545e;
+  border-bottom-color: #43545e;
+}
+
+button.easy {
+  border-top: 1px solid #abcbc7;
+  border-left: 1px solid #abcbc7;
+  border-right: 1px solid #8bb7b1;
+  border-bottom: 1px solid #abcbc7;
+  background-color: #9BC1BC;
+}
+button.easy:hover {
+  background-color: #8bb7b1;
+  border-top-color: #9bc1bc;
+  border-left-color: #9bc1bc;
+  border-right-color: #7cada7;
+  border-bottom-color: #7cada7;
+}
+
+button.light {
+  border-top: 1px solid #f3f5f0;
+  border-left: 1px solid #f3f5f0;
+  border-right: 1px solid #dae1d1;
+  border-bottom: 1px solid #f3f5f0;
+  background-color: #E6EBE0;
+}
+button.light:hover {
+  background-color: #dae1d1;
+  border-top-color: #e6ebe0;
+  border-left-color: #e6ebe0;
+  border-right-color: #cdd7c1;
+  border-bottom-color: #cdd7c1;
+}
+
+button.warm {
+  border-top: 1px solid #f8f6d1;
+  border-left: 1px solid #f8f6d1;
+  border-right: 1px solid #f0eca5;
+  border-bottom: 1px solid #f8f6d1;
+  background-color: #F4F1BB;
+}
+button.warm:hover {
+  background-color: #f0eca5;
+  border-top-color: #f4f1bb;
+  border-left-color: #f4f1bb;
+  border-right-color: #ede88f;
+  border-bottom-color: #ede88f;
 }
 
 .sm-show {
@@ -374,12 +475,60 @@ html {
 
 a {
   text-decoration: none;
-  color: darkslategrey;
+  color: #5CA4A9;
+}
+
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: #586F7C;
+  /* Fallback color */
+  background-color: rgba(88, 111, 124, 0.8);
+  /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #f8f9f6;
+  margin: auto;
+  padding: 2rem;
+  border: 1px solid #586F7C;
+  box-shadow: 0 0 30px 10px rgba(35, 44, 49, 0.05);
+  width: 95%;
+  box-sizing: border-box;
+}
+
+.x {
+  position: absolute;
+  display: inline-block;
+  font-size: 1.5em;
+  top: 0.1rem;
+  right: 0.1rem;
 }
 
 nav {
   display: block;
-  background-color: lightblue;
+  background-color: #5CA4A9;
+}
+
+nav a,
+nav div.expand {
+  color: #f8f9f6;
 }
 
 nav div.expand {
@@ -392,7 +541,11 @@ nav div.expand {
 }
 
 nav ul .collapse li {
-  padding: 0.2em 1em;
+  padding: 0.3em 1em;
+  transition: all 0.5s;
+}
+nav ul .collapse li:hover {
+  background-color: #559ca1;
 }
 
 @media screen and (max-width: 600px) {
@@ -417,7 +570,6 @@ nav ul .collapse li {
   width: 75%;
   display: inline-block;
   margin: 0;
-  padding: 0;
 }
 
 main {
@@ -427,6 +579,13 @@ main {
 .single-issue-grid {
   display: grid;
   grid-template-columns: 100%;
+}
+
+.informative-grid {
+  display: grid;
+  grid-template-columns: 50px 50px auto;
+  grid-auto-rows: auto;
+  grid-template-areas: "postit postit postit" "info info info" "footer footer footer" "b1 b2 .";
 }
 
 .grid-info {
@@ -453,6 +612,10 @@ main {
   grid-area: info;
 }
 
+.grid-footer {
+  grid-area: footer;
+}
+
 .grid-details {
   grid-area: details;
 }
@@ -461,20 +624,34 @@ main {
   grid-area: log;
 }
 
+.grid-b1 {
+  grid-area: b1;
+}
+
+.grid-b2 {
+  grid-area: b2;
+}
+
 input, textarea {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  padding: 0.25em;
+  padding: 0.5rem;
   margin: 0.25em 0;
+  border: 1px solid #5CA4A9;
 }
 
 textarea {
   height: 4em;
 }
 
+table {
+  width: auto;
+  border-collapse: collapse;
+}
+
 tr.selected {
-  background-color: #e7f7fd;
+  background-color: #E6EBE0;
 }
 
 .issue {
@@ -488,6 +665,7 @@ tr.selected {
   font-size: 0.8em;
   padding: 1.8rem 1rem 1.8rem;
   box-sizing: border-box;
+  transition: all 0.1s;
 }
 
 @media screen and (min-width: 400px) {
@@ -591,6 +769,13 @@ div.issue-inner h4 {
     display: none;
   }
 
+  .informative-grid {
+    display: grid;
+    grid-template-columns: 50px 50px 200px auto;
+    grid-auto-rows: auto;
+    grid-template-areas: "postit postit postit info" "footer footer footer footer" "b1 b2 . .";
+  }
+
   .single-issue-grid {
     display: grid;
     grid-template-columns: 300px auto 33%;
@@ -615,30 +800,24 @@ div.issue-inner h4 {
   }
 }
 @media screen and (min-width: 900px) {
-  nav ul li {
-    padding: 1.25rem;
-  }
-}
-@media screen and (min-width: 900px) {
-  nav ul .collapse li {
-    padding: 1.25rem;
-  }
-}
-@media screen and (min-width: 900px) {
-  nav ul, nav ul .collapse {
+  nav ul, nav ul.collapse {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     width: 100%;
+    height: 100%;
     max-width: 1366px;
   }
 }
 @media screen and (min-width: 900px) {
-  nav ul .collapse li {
-    display: inline-block;
-  }
-}
-@media screen and (min-width: 900px) {
-  nav ul li {
-    display: inline-block;
+  nav ul.collapse li,
+nav ul li {
+    padding: 1rem;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 }
 @media screen and (min-width: 900px) {

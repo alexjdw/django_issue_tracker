@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^super/', include('apps.admins.urls')),
     url(r'^issues/', include('apps.issues.urls')),
     url(r'^', include('apps.users.urls')),
+    url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'^api/', include('apps.api.urls'))
 ]

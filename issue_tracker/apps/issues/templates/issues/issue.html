@@ -7,32 +7,36 @@ Issue {{ issueno }}:
     <div class="single-issue-grid">
       <div class="issue priority-{{ issue.priority }} grid-postit">
         <div class="issue-inner">
-        <h4>{{ issue.title|default:"Django-245" }}</h4>
-        {{ issue.short|default:"Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet " }}
+        <h4>{{ issue.category.name }}-{{issue.id}}</h4>
+        {{ issue.short }}
         </div>
       </div>
       <div class="grid-info">
-        <br>
-        <p>Reported by: {{ issue.creator.first_name}} {{issue.creator.last_name}} Tim Tommy</p>
-        <p>Issue Since: {{ issue.created_on }} 5/15/2012</p>
-        <p>Priority: <span class="prio-5">{{ issue.priority }} 5</span></p>
-        <br>
+        {% if issue.owner %}
+          <h4>
+            Lead: 
+            <a href="mailto:{{ issue.owner.email }}?subject=Issue%20{{issue.category.name}}{{issue.id}}">
+              {{ issue.owner.first_name }} {{ issue.owner.last_name }}
+            </a>
+          </h4>
+        {% endif %}
+        <p>Reported by: {{ issue.creator.first_name }} {{ issue.creator.last_name }}</p>
+        <p>Issue Since: {{ issue.created_on }}</p>
+        <p>Priority: <span class="prio-5">{{ issue.priority }}</span></p>
       </div>
       <div class="grid-footer">
         <h3>Issue Details</h3>
-        {{ issue.desc|default:"Issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details issue details " }}
+        {{ issue.desc }}
       </div>
       <div class="grid-log">
         <h3>
           Log
         </h3>
-        <form action="/log" method="POST">
-          <textarea name="log" placeholder="Add a comment to this issue."></textarea>
+        <form action="{{ issue.category.name }}-{{issue.id}}/log" method="POST">
+          {% csrf_token %}
+          <textarea name="logtext" placeholder="Add a comment to this issue."></textarea>
           <button>Post Comment</button>
         </form>
-        <h4>Stevie B.</h4>
-          <p><em>on 2/10/22</em></p>
-          <p>Hey guys I was bugging about this bug then a bug flew into my bunker that I dug. I didn't realize it now it's hiding under the rug.</p>
         {% for log in issue.log_entries.all %}
           <h4>{{ log.creator.first_name }}</h4>
           <p><em>on {{ log.created_on }}</em></p>
@@ -41,7 +45,11 @@ Issue {{ issueno }}:
       </div>
     </div>
     <div>
-      <button class="button-ico-secondary" hovertxt="Watch issue."><i class="fas fa-eye"></i></button>
-      <button class="button-ico-highlight" hovertxt="Take ownership of issue."><i class="fas fa-lock"></i></button>
+      <a href="{{issue.id}}/join">
+        <button class="button-ico-secondary" hovertxt="Watch issue."><i class="fas fa-eye"></i></button>
+      </a>
+      <a href="{{issue.id}}/own">
+        <button class="button-ico-highlight" hovertxt="Take ownership of issue."><i class="fas fa-lock"></i></button>
+      </a>
     </div>
 {% endblock content %}

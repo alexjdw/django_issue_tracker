@@ -11,6 +11,16 @@
     display: none;
   }
 
+  .informative-grid {
+    display: grid;
+    grid-template-columns: 50px 50px 200px auto;
+    grid-auto-rows: auto;
+    grid-template-areas:
+      "postit postit postit info"
+      "footer footer footer footer"
+      "b1 b2 . ."
+  }
+
   .single-issue-grid {
     display: grid;
     grid-template-columns: 300px auto 33%;
@@ -36,31 +46,28 @@
       grid-template-columns: 33% 33% 33% !important;
     }
   }
-  
-  nav ul li {
-    padding: 1.25rem;
-  }
 
-  nav ul .collapse li {
-    padding: 1.25rem;
-  }
-
-  nav ul, nav ul .collapse {
+  nav ul, nav ul.collapse {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     width: 100%;
+    height: 100%;
     max-width: 1366px;
   }
 
-  nav ul .collapse li {
-    display: inline-block;
-  }
+  nav ul.collapse li,
   nav ul li {
-    display: inline-block;
+    padding: 1rem;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .nav-right {
     margin-left: auto;
-
   }
 
   .form-preview, .form-container {

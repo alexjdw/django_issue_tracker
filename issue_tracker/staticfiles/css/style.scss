@@ -1,4 +1,61 @@
-$color-primary: lightblue;
+$c-primary: #5CA4A9;
+$c-warning: #ED6A5A;
+$c-easy: #9BC1BC;
+$c-light: #E6EBE0;
+$c-white: lighten($c-light, 7%);
+$c-warm: #F4F1BB;
+$c-grey: #586F7C;
+
+$cmap: (
+  "primary": (
+    color: $c-primary,
+    border-top: lighten($c-primary, 5%),
+    border-left: lighten($c-primary, 5%),
+    border-right: darken($c-primary, 5%),
+    border-bottom: darken($c-primary, 5%),
+    hover: darken($c-primary, 5%)
+  ),
+  "warning": (
+    color: $c-warning,
+    border-top: lighten($c-warning, 5%),
+    border-left: lighten($c-warning, 5%),
+    border-right: darken($c-warning, 5%),
+    border-bottom: darken($c-warning, 5%),
+    hover: darken($c-warning, 5%)
+  ),
+  "grey": (
+    color: $c-grey,
+    border-top: lighten($c-grey, 5%),
+    border-left: lighten($c-grey, 5%),
+    border-right: darken($c-grey, 5%),
+    border-bottom: darken($c-grey, 5%),
+    hover: darken($c-grey, 5%)
+  ),
+  "easy": (
+    color: $c-easy,
+    border-top: lighten($c-easy, 5%),
+    border-left: lighten($c-easy, 5%),
+    border-right: darken($c-easy, 5%),
+    border-bottom: darken($c-easy, 5%),
+    hover: darken($c-easy, 5%)
+  ),
+  "light": (
+    color: $c-light,
+    border-top: lighten($c-light, 5%),
+    border-left: lighten($c-light, 5%),
+    border-right: darken($c-light, 5%),
+    border-bottom: darken($c-light, 5%),
+    hover: darken($c-light, 5%)
+  ),
+  "warm": (
+    color: $c-warm,
+    border-top: lighten($c-warm, 5%),
+    border-left: lighten($c-warm, 5%),
+    border-right: darken($c-warm, 5%),
+    border-bottom: darken($c-warm, 5%),
+    hover: darken($c-warm, 5%)
+  ),
+);
 
 // Resets
 @import 'normalize';
@@ -21,13 +78,43 @@ p, h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
-button {
-  padding: .25em;
-  background-color: inherit;
-  border: 1px solid rgb(7, 175, 231);
-  border-radius: 8px;
-  color: darkslategray;
+body {
+  background-color: $c-white;
 }
+
+button {
+  padding: .25rem;
+  background-color: inherit;
+  border: 0;
+  border-radius: 8px;
+  transition: all .2s ease-in-out;
+}
+
+input, textarea {
+  padding: .5rem;
+  border: 0;
+  border-radius: 8px;
+  transition: all .2s ease-in-out;
+}
+
+@each $name, $color in $cmap {
+  button.#{$name} {
+    border-top: 1px solid #{map-get($color, border-top)};
+    border-left: 1px solid #{map-get($color, border-left)};
+    border-right: 1px solid #{map-get($color, border-right)};
+    border-bottom: 1px solid #{map-get($color, border-top)};
+    background-color: #{map-get($color, color)};
+    
+    &:hover {
+      background-color: #{map-get($color, hover)};
+      border-top-color: darken(map-get($color, border-top), 5%);
+      border-left-color: darken(map-get($color, border-left), 5%);
+      border-right-color: darken(map-get($color, border-right), 5%);
+      border-bottom-color: darken(map-get($color, border-bottom), 5%);
+    }
+  }
+}
+
 .sm-show {
   display: none;
 }
@@ -41,12 +128,51 @@ html {
 
 a {
   text-decoration: none;
-  color: darkslategrey;
+  color: $c-primary;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: $c-grey; /* Fallback color */
+  background-color: rgba($c-grey, .8); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: $c-white;
+  margin: auto;
+  padding: 2rem;
+  border: 1px solid $c-grey;
+  box-shadow: 0 0 30px 10px rgba(darken($c-grey, 25%), .05);
+  width: 95%;
+  box-sizing: border-box;
+}
+
+.x {
+  position: absolute;
+  display: inline-block;
+  font-size: 1.5em;
+  top: .1rem;
+  right: .1rem;
 }
 
 nav {
   display: block;
-  background-color: $color-primary;
+  background-color: $c-primary;
+}
+
+nav a,
+nav div.expand {
+  color: $c-white;
 }
 
 nav div.expand {
@@ -59,8 +185,13 @@ nav div.expand {
 }
 
 nav ul .collapse li {
-  padding: .2em 1em;
+  padding: .3em 1em;
+  transition: all .5s;
+  &:hover {
+    background-color: darken($c-primary, 3%);
+  }
 }
+
 
 @media screen and (max-width: 600px) {
   .sm-hide {
@@ -82,7 +213,6 @@ nav ul .collapse li {
   width: 75%;
   display: inline-block;
   margin: 0;
-  padding: 0;
 }
 
 main {
@@ -93,6 +223,17 @@ main {
 .single-issue-grid {
   display: grid;
   grid-template-columns: 100%;
+}
+
+.informative-grid {
+  display: grid;
+  grid-template-columns: 50px 50px auto;
+  grid-auto-rows: auto;
+  grid-template-areas:
+    "postit postit postit"
+    "info info info"
+    "footer footer footer"
+    "b1 b2 ."
 }
 
 @each $area in info footer details log postit {
@@ -117,20 +258,34 @@ main {
   grid-area: log;
 }
 
+.grid-b1 {
+  grid-area: b1;
+}
+
+.grid-b2 {
+  grid-area: b2;
+}
+
 input, textarea {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  padding: .25em;
+  padding: .5rem;
   margin: .25em 0;
+  border: 1px solid $c-primary;
 }
 
 textarea {
   height: 4em;
 }
 
+table {
+  width: auto;
+  border-collapse: collapse;
+}
+
 tr.selected {
-  background-color: rgb(231, 247, 253);
+  background-color: $c-light;
 }
 
 .issue {
@@ -144,6 +299,7 @@ tr.selected {
   font-size: .8em;
   padding: 1.8rem 1rem 1.8rem;
   box-sizing: border-box;
+  transition: all .1s;
 }
 
 // Responsive breakpoints to properly size post-it background on different phones

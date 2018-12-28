@@ -24,59 +24,19 @@ Administration:
               <span class="sm-show">Sev: </span>5
             </td>
             <td>
-                <button class="button-small-ico-priority hide"><i class="fas fa-minus-circle"></i></button>
+                <button class="show-modal warning hide" modal=""><i class="fas fa-minus-circle"></i></button>
                 Jose, 
-                <button class="button-small-ico-priority hide"><i class="fas fa-minus-circle"></i></button>
+                <button class="show-modal warning hide" modal=""><i class="fas fa-minus-circle"></i></button>
                 John, 
-                <button class="button-small-ico-priority hide"><i class="fas fa-minus-circle"></i></button>
+                <button class="show-modal warning hide" modal=""><i class="fas fa-minus-circle"></i></button>
                 Jane, 
-                <button class="button-small-ico-priority hide"><i class="fas fa-minus-circle"></i></button>
+                <button class="show-modal warning hide" modal=""><i class="fas fa-minus-circle"></i></button>
                 Tina
-                <button class="button-small-ico-secondary"><i class="fas fa-plus-circle"></i></button>
+                <button class="show-modal primary"><i class="fas fa-plus-circle"></i></button>
               </td>
             <td>Amy</td>
             <td>Complete by Jose</td>
-            <td>Assign | Priority</td>
-          </tr>
-          <tr>
-            <td>1</td><td>5</td>
-            <td>
-              <button class="button-small-ico-priority hide"><i class="fas fa-minus-circle"></i></button>
-              Aishoo, 
-              <button class="button-small-ico-priority hide"><i class="fas fa-minus-circle"></i></button>
-              Warren,
-              <button class="button-small-ico-priority hide"><i class="fas fa-minus-circle"></i></button>
-              Alex, 
-              <button class="button-small-ico-priority hide"><i class="fas fa-minus-circle"></i></button>
-              Sadie
-              <button class="button-small-ico-secondary"><i class="fas fa-plus-circle"></i></button>
-            </td>
-            <td>Amy</td>
-            <td>Complete by Jose</td>
-            <td>Assign | Priority</td>
-          </tr>
-          <tr>
-            <td>1</td><td>5</td>
-            <td>
-              <button class="button-small-ico-priority hide"><i class="fas fa-minus-circle"></i></button>
-              Jose,
-              <button class="button-small-ico-priority hide"><i class="fas fa-minus-circle"></i></button>
-              John,
-              <button class="button-small-ico-priority hide"><i class="fas fa-minus-circle"></i></button>
-              Jane,
-              <button class="button-small-ico-priority hide"><i class="fas fa-minus-circle"></i></button>
-              Tina
-              <button class="button-small-ico-secondary"><i class="fas fa-plus-circle"></i></button>
-            </td>
-            <td>
-              Amy
-            </td>
-            <td>
-              Complete by Jose
-            </td>
-            <td>
-              <a href="#">Assign</a> | <a href="#">Priority</a>
-            </td>
+            <td>Assign | warning</td>
           </tr>
         </tbody>
       </table>
@@ -86,6 +46,18 @@ Administration:
           <button class="button-primary">Open Issues</button>
           <button class="button-primary">New Issue</button>
         </div>
+      </div>
+    </div>
+
+    <div class="modal">
+      <div class="modal-content">
+        <div class="x">
+          <i class="fas fa-times-circle"></i>
+        </div>
+        <form>
+          <input type="text">
+          <input type="text">
+        </form> 
       </div>
     </div>
 {% endblock content %}
