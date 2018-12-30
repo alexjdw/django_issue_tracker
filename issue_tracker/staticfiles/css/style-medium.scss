@@ -12,6 +12,14 @@
       "footer footer";
   }
 
+  td {
+    padding-right: .5em;
+  }
+
+  .modal-form {
+    width: 70%;
+  }
+
   .single-issue-grid {
     display: grid;
     grid-template-columns: 50% auto;

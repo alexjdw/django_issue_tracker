@@ -46,10 +46,10 @@ class IssueManager(models.Manager):
 
 
 class Issue(models.Model):
-    creator = models.ForeignKey(User, related_name="issues_created")
-    owner = models.ForeignKey(User, related_name="issues_owned", null=True)
-    users = models.ManyToManyField(User, related_name="issues_joined")
-    category = models.ForeignKey(Category, related_name="issues")
+    creator = models.ForeignKey(User, related_name="%(class)ss_created")
+    owner = models.ForeignKey(User, related_name="%(class)ss_owned", null=True)
+    users = models.ManyToManyField(User, related_name="%(class)ss_joined")
+    category = models.ForeignKey(Category, related_name="%(class)ss")
     short = models.CharField(max_length=200)
     desc = models.CharField(max_length=500)
     priority = models.PositiveSmallIntegerField()
@@ -59,11 +59,11 @@ class Issue(models.Model):
     objects = IssueManager()
 
     @classmethod
-    def from_resolved(cls, issue):
-        return cls(
+    def from_issue(cls, issue):
+        # works for issues or resolved issues
+        newissue = cls(
             creator=issue.creator,
             owner=issue.owner,
-            users=issue.users,
             category=issue.category,
             short=issue.short,
             desc=issue.desc,
@@ -71,18 +71,34 @@ class Issue(models.Model):
             created_on=issue.created_on,
             updated_on=issue.updated_on,
             )
+        for user in issue.users.all():
+            newissue.users.add(user)
+
+        return newissue
 
     def __repr__(self):
-        return f"Issue Object: <{self.category.name}-{self.issue} {self.created_on}>"
+        return f"Issue Object: <{self.category.name}-{self.id} {self.created_on}>"
 
 
-class ResolvedIssue(Issue):
+class ResolvedIssue(models.Model):
+    creator = models.ForeignKey(User, related_name="%(class)ss_created")
+    owner = models.ForeignKey(User, related_name="%(class)ss_owned", null=True)
+    users = models.ManyToManyField(User, related_name="%(class)ss_joined")
+    category = models.ForeignKey(Category, related_name="%(class)ss")
+    short = models.CharField(max_length=200)
+    desc = models.CharField(max_length=500)
+    priority = models.PositiveSmallIntegerField()
+    created_on = models.DateField(auto_now_add=True)
+    updated_on = models.DateField(auto_now=True)
+
+    objects = IssueManager()
+
     @classmethod
     def from_issue(cls, issue):
-        return cls(
+        # works for issues or resolved issues
+        newissue = cls(
             creator=issue.creator,
             owner=issue.owner,
-            users=issue.users,
             category=issue.category,
             short=issue.short,
             desc=issue.desc,
@@ -90,9 +106,13 @@ class ResolvedIssue(Issue):
             created_on=issue.created_on,
             updated_on=issue.updated_on,
             )
+        for user in issue.users.all():
+            newissue.users.add(user)
+
+        return newissue
 
     def __repr__(self):
-        return f"Resolved Issue Object: <{self.category.name}-{self.issue} {self.created_on}>"
+        return f"Issue Object: <{self.category.name}-{self.id} {self.created_on}>"
 
 
 class IssueLogEntry(models.Model):

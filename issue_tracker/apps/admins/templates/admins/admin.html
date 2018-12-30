@@ -7,37 +7,49 @@ Administration:
       <table>
         <thead>
           <tr>
-            <th class="tw-0">ID</th>
-            <th class="tw-0">Sev</th>
-            <th class="tw-2">Users</th>
-            <th class="tw-1">Owner</th>
-            <th class="tw-2">Updates</th>
-            <th class="tw-1">Actions</th>
+            <th class="t-0">ID</th>
+            <th class="t-0">Sev</th>
+            <th class="t-3">Users</th>
+            <th class="t-0"></th>
+            <th class="t-1">Owner</th>
+            <th class="t-8">Updates</th>
           </tr>
         </thead>
         <tbody>
+          {% for issue in issues %}
           <tr>
             <td>
-              <span class="sm-show">ID: </span>1
+              <span class="sm-show">ID: </span><a href="/issues/{{issue.id}}">{{ issue.id }}</a>
             </td>
             <td>
-              <span class="sm-show">Sev: </span>5
+              <span class="sm-show">Sev: </span>{{ issue.priority }}
+            </td>
+            <td modal-issue-id="{{issue.id}}">
+              {% for user in issue.users.all %}
+                <button class="warning hide"><i class="fas fa-minus-circle"></i></button>
+                <a href="mailto:{{user.email}}?subject=Issue%20{{issue.category.name}}-{{issue.id}}" title="{{user.first_name}} {{user.last_name}} | {{user.email}}">{{ user.first_name }}</a>
+              {% endfor %}
             </td>
             <td>
-                <button class="show-modal warning hide" modal=""><i class="fas fa-minus-circle"></i></button>
-                Jose, 
-                <button class="show-modal warning hide" modal=""><i class="fas fa-minus-circle"></i></button>
-                John, 
-                <button class="show-modal warning hide" modal=""><i class="fas fa-minus-circle"></i></button>
-                Jane, 
-                <button class="show-modal warning hide" modal=""><i class="fas fa-minus-circle"></i></button>
-                Tina
-                <button class="show-modal primary"><i class="fas fa-plus-circle"></i></button>
-              </td>
-            <td>Amy</td>
-            <td>Complete by Jose</td>
-            <td>Assign | warning</td>
+              <button class="show-modal primary" modal-issue-id="{{issue.id}}"><i class="fas fa-plus-circle"></i></button>
+            </td>
+            <td>
+              {% if issue.owner %}
+                {% with issue.owner as user %}
+                <a href="mailto:{{user.email}}?subject=Issue%20{{issue.category.name}}-{{issue.id}}" title="{{user.first_name}} {{user.last_name}} | {{user.email}}">{{ user.first_name }}</a>
+                {% endwith %}
+              {% else %}
+                Open
+              {% endif %}
+            </td>
+            <td>
+              {% with issue.log_entries.first.creator as user %}
+                <a href="mailto:{{user.email}}?subject=Issue%20{{issue.category.name}}-{{issue.id}}" title="{{user.first_name}} {{user.last_name}} | {{user.email}}">{{ user.first_name }}</a>
+                {{ issue.log_entries.first.entry }}
+              {% endwith %}
+            </td>
           </tr>
+          {% endfor %}
         </tbody>
       </table>
       <div class="row">
@@ -50,14 +62,19 @@ Administration:
     </div>
 
     <div class="modal">
-      <div class="modal-content">
+      <div class="modal-content modal-form">
         <div class="x">
           <i class="fas fa-times-circle"></i>
         </div>
-        <form>
-          <input type="text">
-          <input type="text">
-        </form> 
+        <form id="modal-form" action="" method="POST">
+          {% csrf_token %}
+          <input type="text" class="modal-users">
+          <input id="ids" name="ids" type="hidden">
+          <ul id="modal-selected-users">
+          </ul>
+          <button id="modal-submit" type="submit" class="primary">Submit</button>
+          <div class="loader" id="modal-loader"></div>
+        </form>
       </div>
     </div>
 {% endblock content %}

@@ -4,10 +4,13 @@ My issues
 {% endblock %}
 
 {% block content %}
+  {% if owned_issues %}
+  <h2>My Issues</h2>
+  {% endif %}
   {% for issue in owned_issues %}
-  <div class="informative-grid">
+  <div id="issue-{{issue.id}}" class="informative-grid">
     <div class="grid-postit">
-      <div class="issue priority" url="{{ issue.category.name }}-{{issue.id}}">
+      <div class="issue sev-{{issue.priority}}" url="{{ issue.category.name }}-{{issue.id}}">
         <div class="issue-inner">
           <h4>{{ issue.category.name }}-{{ issue.id }}</h4>
           {{ issue.short }}
@@ -22,10 +25,53 @@ My issues
       {% endfor %}
     </div>
     <div class="grid-b1">
-      <button class="button-grid-ico-primary"><i class="fas fa-check"></i></button>
+      <form class="mark-complete" action="mark-complete/{{issue.id}}">
+        <input type="hidden" name="issue-id" value="{{issue.id}}">
+        <button class="easy"><i class="fas fa-check"></i></button>
+      </form>
     </div>
     <div class="grid-b2">
-      <button class="button-grid-ico-primary"><i class="fas fa-times"></i></button>
+      <form class="drop-issue" action="drop/{{issue.id}}">
+        <input type="hidden" name="issue-id" value="{{issue.id}}">
+        <button class="easy"><i class="fas fa-times"></i></button>
+      </form>
+    </div>
+    <div class="grid-footer">
+      Created: <em>{{ issue.created_on }}</em><br> Last activity: <em>{{ issue.log_entries.first.created_on }}</em>
+    </div>
+  </div>
+  {% endfor %}
+  {% if joined_issues %}
+  <h2>Watched Issues</h2>
+  {% endif %}
+  {% for issue in joined_issues %}
+  <div id="issue-{{issue.id}}" class="informative-grid">
+    <div class="grid-postit">
+      <div class="issue sev-{{issue.priority}}" url="{{ issue.category.name }}-{{issue.id}}">
+        <div class="issue-inner">
+          <h4>{{ issue.category.name }}-{{ issue.id }}</h4>
+          {{ issue.short }}
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-info">
+      {% for entry in issue.log_entries.all %}
+      <h4>{{ entry.creator }}</h4><em>{{ entry.created_on }}</em>
+      <p>{{ entry.entry }}</p>
+      {% endfor %}
+    </div>
+    <div class="grid-b1">
+      <form class="mark-complete" action="mark-complete/{{issue.id}}">
+        <input type="hidden" name="issue-id" value="{{issue.id}}">
+        <button class="easy"><i class="fas fa-check"></i></button>
+      </form>
+    </div>
+    <div class="grid-b2">
+      <form class="drop-issue" action="drop/{{issue.id}}">
+        <input type="hidden" name="issue-id" value="{{issue.id}}">
+        <button class="easy"><i class="fas fa-times"></i></button>
+      </form>
     </div>
     <div class="grid-footer">
       Created: <em>{{ issue.created_on }}</em><br> Last activity: <em>{{ issue.log_entries.first.created_on }}</em>

@@ -87,7 +87,6 @@ button {
   background-color: inherit;
   border: 0;
   border-radius: 8px;
-  transition: all .2s ease-in-out;
 }
 
 input, textarea {
@@ -112,6 +111,18 @@ input, textarea {
       border-right-color: darken(map-get($color, border-right), 5%);
       border-bottom-color: darken(map-get($color, border-bottom), 5%);
     }
+  }
+
+  .tag.#{$name} {
+    padding: .25em;
+    margin: .25em;
+    display: inline-block;
+    border-radius: 2px;
+    border-top: 1px solid #{map-get($color, border-top)};
+    border-left: 1px solid #{map-get($color, border-left)};
+    border-right: 1px solid #{map-get($color, border-right)};
+    border-bottom: 1px solid #{map-get($color, border-top)};
+    background-color: #{map-get($color, color)};
   }
 }
 
@@ -192,6 +203,20 @@ nav ul .collapse li {
   }
 }
 
+.loader {
+  border: 4px solid $c-grey; /* Light grey */
+  border-top: 4px solid $c-easy; /* Blue */
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 
 @media screen and (max-width: 600px) {
   .sm-hide {
@@ -200,10 +225,12 @@ nav ul .collapse li {
   .sm-show {
     display: inline;
   }
+  
   td {
     display: block;
     width: 100%;
   }
+
   th {
     display: none;
   }
@@ -280,16 +307,20 @@ textarea {
 }
 
 table {
-  width: auto;
+  width: 80%;
   border-collapse: collapse;
 }
 
+@each $size in 0 1 2 3 4 5 6 7 8 9 10 11 12 {
+  .t-#{$size} {
+    width: $size * 8.3%;
+  }
+}
 tr.selected {
   background-color: $c-light;
 }
 
 .issue {
-  background-image: url('/static/img/postit-3.svg');
   background-size: cover;
   background-position: center center;
   background-repeat:no-repeat;
@@ -300,6 +331,12 @@ tr.selected {
   padding: 1.8rem 1rem 1.8rem;
   box-sizing: border-box;
   transition: all .1s;
+}
+
+@each $sev in 1 2 3 4 5 {
+  .issue.sev-#{$sev} {
+    background-image: url('/static/img/postit-#{$sev}.svg');
+  }
 }
 
 // Responsive breakpoints to properly size post-it background on different phones

@@ -8,11 +8,9 @@ $.getJSON(
         autocomplete_lists['#category'] = [];
 
         $.each(json, function(item) {
-            console.log(json[item]);
             autocomplete_lists['.nav-search'].push(json[item].name);
             autocomplete_lists['#category'].push(json[item].name);
         });
-        console.log(autocomplete_lists);
         Object.keys(autocomplete_lists).forEach(function(key) {
             $(key).autocomplete({
                 source: autocomplete_lists[key],
@@ -25,7 +23,6 @@ $.getJSON(
 $.getJSON(
     '/api/users/?format=json',
     function(json) {
-        console.log(json)
         json.each(function(item) {
             autocomplete_lists['.search-users'].push(
                 json[item].first_name + ' ' + json[item].last_name + ' ' + json[item.email]);
@@ -72,5 +69,96 @@ $(document).ready(function() {
 
     $('input#notifications').keypress(function(e) {
         console.log(e);
+    });
+
+    $('.show-modal').on('click', function(e) {
+        $('#modal-selected-users').html('');
+        $('.modal').fadeIn(200);
+        $('#modal-loader').fadeIn(200);
+        $('#modal-form').attr(
+            'action',
+            "add-users/" + $(this).attr('modal-issue-id')
+        );
+        $('#modal-form').attr(
+            'issue-id',
+            $(this).attr('modal-issue-id')
+        );
+        e.preventDefault();
+
+        $.getJSON(
+            '/api/users?format=json',
+            function(json) {
+                autocomplete_lists['.modal-users'] = [];
+
+                $.each(json, function(item) {
+                    console.log(json[item]);
+                    autocomplete_lists['.modal-users'].push(
+                        {
+                            label: json[item].first_name + ' ' + json[item].last_name + ', ' + json[item].email,
+                            value: json[item].id
+                        }
+                    );
+                });
+                console.log(autocomplete_lists);
+                $('.modal-users').autocomplete({
+                    source: autocomplete_lists['.modal-users'],
+                    autoFocus: true,
+                    select: function(event, ui) {
+                        $('#modal-selected-users').append(
+                            '<li><span class="tag light">' + ui.item.label + '</span></li>'
+                        );
+                        $('input#ids').val(
+                            $('input#ids').val() + ' ' + ui.item.value
+                        );
+                    }
+                });
+                $('#modal-loader').fadeOut();
+        });
+    });
+
+    $('#modal-form').submit(function(e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        // Select the TD element to pass it to the .done handler.
+        var context = $(this).attr('issue-id');
+        context = $('td[modal-issue-id="' + context + '"]');
+        $('#modal-loader').fadeIn();
+        console.log(context);
+        $.ajax({
+            url: $(this).attr('action'),
+            method: 'POST',
+            data: data,
+            context: context
+            })
+            .done(function(response) {
+                console.log(response);
+                $(this).html(response);
+                $('#modal-loader').fadeOut();
+                $('.modal').fadeOut();
+            })
+            .fail(function(response){
+                console.log("Error");
+                console.log(response);
+                $('#modal-loader').fadeOut();
+            });
+    });
+
+    $('.mark-complete, .drop-issue').on("submit", function(e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        var context = $(this).children('input').first().val();
+        context = $('#issue-' + context);
+
+        $.ajax({
+            data: data,
+            url: $(this).attr('action'),
+            context: context
+            })
+            .done(function(response) {
+                $(this).fadeOut();
+            })
+            .fail(function(response) {
+                console.log("Request failed.")
+            });
     });
 });

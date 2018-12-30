@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import User, Issue, ResolvedIssue, IssueLogEntry
 from django.contrib import messages
 from django.db.models import Q
+from django.http import HttpResponse
+
+from .models import User, Issue, ResolvedIssue, IssueLogEntry
 
 
 @login_required
@@ -15,7 +17,12 @@ def all_issues(request):
 @login_required
 def my_issues(request):
     owned = Issue.objects.filter(owner=request.user).order_by("-created_on")
-    return render(request, 'issues/my_issues.html', {'owned_issues': owned})
+    joined = request.user.issues_joined.all()
+    context = {
+        'owned_issues': owned,
+        'joined_issues': joined
+        }
+    return render(request, 'issues/my_issues.html', context)
 
 
 @login_required
@@ -124,3 +131,23 @@ def add_to_log(request, issueno, category=None):
         return redirect('/issues/' + issue.category.name + '-' + str(issue.id))
 
     return redirect('/issues/' + issue.category.name + '-' + str(issue.id))
+
+
+@login_required
+def mark_complete(request, issueno):
+    issue = Issue.objects.get(id=issueno)
+    res = ResolvedIssue.from_issue(issue)
+    res.save()
+
+    issue.delete()
+
+    return HttpResponse('')
+
+
+@login_required
+def drop_issue(request, issueno):
+    issue = Issue.objects.get(id=issueno)
+    request.user.issues_joined.remove(issue)
+    request.user.save()
+
+    return HttpResponse('')

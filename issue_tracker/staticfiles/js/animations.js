@@ -27,16 +27,11 @@ $(document).ready(function() {
     $('tbody tr').on('click', function(e) {
         if (e.target.tagName == 'TD') {
             $(this).toggleClass('selected');
-            $(this).find('button.hide').animate({width: 'toggle', height: 'toggle', padding: 'toggle', margin: 'toggle', border: 'toggle'});
+            $(this).find('button.hide').animate({width: 'toggle', padding: 'toggle'})
         }
     });
 
     $('.x').on('click', function(e) {
         $('.modal').fadeOut(200);
-    });
-
-    $('.show-modal').on('click', function(e) {
-        $('.modal').fadeIn(200);
-        e.preventDefault();
     });
 });
