@@ -333,9 +333,25 @@ tr.selected {
   transition: all .1s;
 }
 
-@each $sev in 1 2 3 4 5 {
+@each $sev, $color in (1: lightgreen,
+                       2: lightblue,
+                       3: lightyellow,
+                       4: rgb(253, 159, 253),
+                       5: pink) {
   .issue.sev-#{$sev} {
     background-image: url('/static/img/postit-#{$sev}.svg');
+  }
+
+  span.sev-#{$sev} {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    line-height: 1em;
+    border-radius: 50%;
+    padding: .5em;
+    margin: .1em .25em;
+    background-color: $color;
   }
 }
 

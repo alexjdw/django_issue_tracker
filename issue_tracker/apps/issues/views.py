@@ -2,20 +2,24 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
-from django.db.models import Q
 from django.http import HttpResponse
-
-from .models import User, Issue, ResolvedIssue, IssueLogEntry
+from .models import Issue, ResolvedIssue, IssueLogEntry
 
 
 @login_required
 def all_issues(request):
+    '''
+    Displays all issues.
+    '''
     issues = Issue.objects.all().order_by("-created_on")
     return render(request, 'issues/all_issues.html', {'issues': issues})
 
 
 @login_required
 def my_issues(request):
+    '''
+    Displays the current user's owned and joined issues.
+    '''
     owned = Issue.objects.filter(owner=request.user).order_by("-created_on")
     joined = request.user.issues_joined.all()
     context = {
@@ -27,16 +31,31 @@ def my_issues(request):
 
 @login_required
 def priority_issues(request):
+    '''
+    Awaiting implementation.
+    '''
     return render(request, 'issues/all_issues.html')
 
 
 @login_required
 def team_issues(request):
+    '''
+    Awaiting implementation.
+    '''
     return render(request, 'issues/team_issues.html')
 
 
 @login_required
 def issue(request, issueno, category=None):
+    '''
+    Renders the details for a single issue.
+
+    :issueno: The issue's database ID.
+    :category: The issue's category name.
+
+    (Category doesn't matter as we pull issues directly from the issueno, but
+    we do check if it matches.)
+    '''
     try:
         issue = Issue.objects.get(id=issueno)
     except ObjectDoesNotExist:
@@ -53,8 +72,11 @@ def issue(request, issueno, category=None):
 
 @login_required
 def create_form_submit(request):
+    '''
+    POST route for creating a new issue via the create form.
+    '''
     if request.method != "POST":
-        return redirect(create_issue)
+        return redirect(create_form)
 
     issue = Issue.objects.validate_and_create(
         post=request.POST, creator=request.user)
@@ -65,11 +87,17 @@ def create_form_submit(request):
 
 @login_required
 def create_form(request):
+    '''
+    Route that renders the create issue form.
+    '''
     return render(request, "issues/create.html")
 
 
 @login_required
 def join_issue(request, issueno, category=None):
+    '''
+    Route for adding an issue to your watch list.
+    '''
     try:
         issue = Issue.objects.get(id=issueno)
     except ObjectDoesNotExist:
@@ -87,6 +115,9 @@ def join_issue(request, issueno, category=None):
 
 @login_required
 def own_issue(request, issueno, category=None):
+    '''
+    Route for taking ownership of an issue. User will appear as the "Lead" on the issue.
+    '''
     try:
         issue = Issue.objects.get(id=issueno)
     except ObjectDoesNotExist:
@@ -106,12 +137,10 @@ def own_issue(request, issueno, category=None):
 
 
 @login_required
-def watch_issue(request, issueno, category=None):
-    return redirect('/issues/' + issue.category.name + '-' + str(issue.id))
-
-
-@login_required
 def add_to_log(request, issueno, category=None):
+    '''
+    POST route for adding to the "log" section for a single issue.
+    '''
     if request.method != 'POST':
         messages.error(request, 'Got an invalid request type:' + request.type)
         return redirect('/issues/all')
@@ -135,6 +164,11 @@ def add_to_log(request, issueno, category=None):
 
 @login_required
 def mark_complete(request, issueno):
+    '''
+    Route for marking an issue resolved an issue via an AJAX request.
+
+    Add the issue to the Resolved Issues table. Issue ID is not currently preserved.
+    '''
     issue = Issue.objects.get(id=issueno)
     res = ResolvedIssue.from_issue(issue)
     res.save()
@@ -146,6 +180,9 @@ def mark_complete(request, issueno):
 
 @login_required
 def drop_issue(request, issueno):
+    '''
+    Route for dropping an issue via an AJAX request.
+    '''
     issue = Issue.objects.get(id=issueno)
     request.user.issues_joined.remove(issue)
     request.user.save()

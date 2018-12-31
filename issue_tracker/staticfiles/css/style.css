@@ -813,20 +813,80 @@ tr.selected {
   background-image: url("/static/img/postit-1.svg");
 }
 
+span.sev-1 {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  line-height: 1em;
+  border-radius: 50%;
+  padding: 0.5em;
+  margin: 0.1em 0.25em;
+  background-color: lightgreen;
+}
+
 .issue.sev-2 {
   background-image: url("/static/img/postit-2.svg");
+}
+
+span.sev-2 {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  line-height: 1em;
+  border-radius: 50%;
+  padding: 0.5em;
+  margin: 0.1em 0.25em;
+  background-color: lightblue;
 }
 
 .issue.sev-3 {
   background-image: url("/static/img/postit-3.svg");
 }
 
+span.sev-3 {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  line-height: 1em;
+  border-radius: 50%;
+  padding: 0.5em;
+  margin: 0.1em 0.25em;
+  background-color: lightyellow;
+}
+
 .issue.sev-4 {
   background-image: url("/static/img/postit-4.svg");
 }
 
+span.sev-4 {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  line-height: 1em;
+  border-radius: 50%;
+  padding: 0.5em;
+  margin: 0.1em 0.25em;
+  background-color: #fd9ffd;
+}
+
 .issue.sev-5 {
   background-image: url("/static/img/postit-5.svg");
+}
+
+span.sev-5 {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  line-height: 1em;
+  border-radius: 50%;
+  padding: 0.5em;
+  margin: 0.1em 0.25em;
+  background-color: pink;
 }
 
 @media screen and (min-width: 400px) {

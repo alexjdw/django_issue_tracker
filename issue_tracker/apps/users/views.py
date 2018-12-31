@@ -5,13 +5,18 @@ from .models import User, RegKey
 
 # Create your views here.
 def login_page(request):
+    '''
+    User can log in or register here.
+    '''
     if request.user.is_authenticated:
         return redirect('/issues/all')
     return render(request, 'users/login_and_reg.html')
 
 
 def register_submit(request):
-    '''Handles the POST request for the new user registration form.'''
+    '''
+    Handles the POST request for the new user registration form.
+    '''
     if request.method != "POST":
         return redirect(login_page)
 
@@ -30,7 +35,9 @@ def register_submit(request):
 
 
 def login_submit(request):
-    '''Handles the POST request for the new user login form.'''
+    '''
+    Handles the POST request for the new user login form.
+    '''
     if request.method != "POST":
         return redirect(login_page)
 

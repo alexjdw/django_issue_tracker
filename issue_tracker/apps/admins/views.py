@@ -6,12 +6,16 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 
 
-def template(request):
-    return render(request, 'admins/template.html')
+# Route for testing the template.
+# def template(request):
+#     return render(request, 'admins/template.html')
 
 
 @login_required
 def admin_home(request):
+    '''
+    Home page for issue administrators.
+    '''
     if not request.user.permissions.adminpage:
         return redirect('/issues/all')
 
@@ -25,14 +29,23 @@ def admin_home(request):
 
 @login_required
 def add_user_to_issue(request, issueno):
-    if request.method != "POST":
-        messages.error("Request type was not POST.")
+    '''
+    AJAX POST route for admins to add an issue to a user's watch list.
+
+    -> Partial with 
+    '''
+    if request.method != 'POST':
+        messages.error('Request type was not POST.')
         return redirect(admin_home)
+
+    if not request.user.permissions.adminpage:
+        messages.error('User lacks privleges to make this request.')
+        return redirect('/')
 
     try:
         issue = Issue.objects.get(id=issueno)
     except ObjectDoesNotExist:
-        messages.error("This issue no longer exists.")
+        messages.error('This issue no longer exists.')
         return redirect(admin_home)
 
     for id in request.POST.get('ids').split():
@@ -40,11 +53,11 @@ def add_user_to_issue(request, issueno):
             issue.users.add(User.objects.get(id=int(id)))
         except ObjectDoesNotExist:
             pass
-    
+
     issue.save()
 
     context = {
         'issue': issue
     }
 
-    return render(request, "admins/partials/users-td.html", context=context)
+    return render(request, 'admins/partials/users-td.html', context=context)

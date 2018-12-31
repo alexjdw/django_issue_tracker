@@ -22,7 +22,7 @@ Issue {{ issueno }}:
         {% endif %}
         <p>Reported by: {{ issue.creator.first_name }} {{ issue.creator.last_name }}</p>
         <p>Issue Since: {{ issue.created_on }}</p>
-        <p>Priority: <span class="prio-5">{{ issue.priority }}</span></p>
+        <p>Priority: <span class="sev-{{issue.priority}}">{{ issue.priority }}</span></p>
       </div>
       <div class="grid-footer">
         <h3>Issue Details</h3>

@@ -3,6 +3,14 @@ from apps.users.models import User
 
 
 class Category(models.Model):
+    '''
+    Issues are categorized for searching using this model.
+
+    :name: The name of the category.
+
+    Category has a 1:Many relationship with Issue. In the future, a
+    Many:Many relationship is planned.
+    '''
     name = models.CharField(max_length=50)
 
     def __str__(self):
@@ -13,6 +21,15 @@ class Category(models.Model):
 
 
 class IssueManager(models.Manager):
+    '''
+    Manager class for Issue.
+
+    :validate_and_create: Creates and returns a new issue from a POST request.
+    Requires 'category', 'shortdesc', 'desc', and 'severity' to be in the POST
+    data. Can also accept any key/value store.
+
+    Returns a dict of validation error messages if it fails to create.
+    '''
     def validate_and_create(self, post, creator):
         errors = {}
 
@@ -46,6 +63,20 @@ class IssueManager(models.Manager):
 
 
 class Issue(models.Model):
+    '''
+    The core model for this project, representing a bug, feature request,
+    or some other completable task.
+
+    :creator: User that submitted the issue.
+    :owner: A user that has taken responsibility for resolving the issue.
+    :users: Users that are "watching" the issue.
+    :category: Searchable term that succintly groups the issue with related issues.
+    :short: Short description that fits on a post-it card.
+    :desc: Long description.
+    :priority: Severity of issue from 1-5.
+    :log_entries: 1:Many link to IssueLogEntry.
+        Used for posting short memos to the issue page for others to view.
+    '''
     creator = models.ForeignKey(User, related_name="%(class)ss_created")
     owner = models.ForeignKey(User, related_name="%(class)ss_owned", null=True)
     users = models.ManyToManyField(User, related_name="%(class)ss_joined")
@@ -81,6 +112,10 @@ class Issue(models.Model):
 
 
 class ResolvedIssue(models.Model):
+    '''
+    Resolved issue. See Issue. At this time, issue ID is not preserved when
+    marking an issue resolved.
+    '''
     creator = models.ForeignKey(User, related_name="%(class)ss_created")
     owner = models.ForeignKey(User, related_name="%(class)ss_owned", null=True)
     users = models.ManyToManyField(User, related_name="%(class)ss_joined")
@@ -116,6 +151,9 @@ class ResolvedIssue(models.Model):
 
 
 class IssueLogEntry(models.Model):
+    '''
+    Log entry for users to make comments on an issue.
+    '''
     creator = models.ForeignKey(User, related_name="log_entries")
     issue = models.ForeignKey(Issue, related_name="log_entries")
     entry = models.CharField(max_length=500)
