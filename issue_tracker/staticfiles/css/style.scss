@@ -98,11 +98,12 @@ input, textarea {
 
 @each $name, $color in $cmap {
   button.#{$name} {
-    border-top: 1px solid #{map-get($color, border-top)};
-    border-left: 1px solid #{map-get($color, border-left)};
-    border-right: 1px solid #{map-get($color, border-right)};
-    border-bottom: 1px solid #{map-get($color, border-top)};
+    border-top: 2px solid #{map-get($color, border-top)};
+    border-left: 2px solid #{map-get($color, border-left)};
+    border-right: 2px solid #{map-get($color, border-right)};
+    border-bottom: 2px solid #{map-get($color, border-top)};
     background-color: #{map-get($color, color)};
+    transition: background-color .2s;
     
     &:hover {
       background-color: #{map-get($color, hover)};

@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.http import HttpResponse
-from .models import Issue, ResolvedIssue, IssueLogEntry
+from .models import Issue, ResolvedIssue, IssueLogEntry, Category
+from django.db.models import Q
 
 
 @login_required
@@ -163,6 +164,28 @@ def add_to_log(request, issueno, category=None):
 
 
 @login_required
+def all_categories(request):
+    context = {
+        'categories': Category.objects.all()
+    }
+
+    return render(request, 'issues/all_categories.html', context)
+
+
+@login_required
+def one_category(request, category):
+    try:
+        context = {
+                    'category': Category.objects.get(name=category)
+                  }
+    except ObjectDoesNotExist:
+        messages.error(request, "Category doesn't exist.")
+        return redirect(all_categories)
+
+    return render(request, 'issues/category.html', context)
+
+
+@login_required
 def mark_complete(request, issueno):
     '''
     Route for marking an issue resolved an issue via an AJAX request.
@@ -171,7 +194,6 @@ def mark_complete(request, issueno):
     '''
     issue = Issue.objects.get(id=issueno)
     res = ResolvedIssue.from_issue(issue)
-    res.save()
 
     issue.delete()
 
@@ -188,3 +210,32 @@ def drop_issue(request, issueno):
     request.user.save()
 
     return HttpResponse('')
+
+
+@login_required
+def search(request):
+    '''
+    GET route for handling the search bar request.
+    '''
+    if request.method != "GET":
+        return redirect('/')
+
+    searchstr = request.GET.get('nav-search').strip()
+    print(searchstr)
+
+    if searchstr == '':
+        return redirect('/')
+
+    searchstr = searchstr.split()
+    catqueries = Q(name__icontains=searchstr[0])
+    issuequeries = Q(desc__icontains=searchstr[0]) | Q(short__icontains=searchstr[0])
+    for term in searchstr[1:]:
+        catqueries = catqueries | Q(name__icontains=term)
+        issuequeries = issuequeries | Q(desc__icontains=term) | Q(short__icontains=term)
+
+    context = {
+        'categories': Category.objects.filter(catqueries),
+        'issues': Issue.objects.filter(issuequeries)
+    }
+
+    return render(request, 'issues/search.html', context)

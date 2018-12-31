@@ -1,0 +1,21 @@
+{% extends 'issues/template.html' %}
+{% block title %}
+Search Results
+{% endblock title %}
+
+{% block content %}
+  <h2>Categories</h2>
+  {% for category in categories %}
+    <a href="category/{{ category.name }}">{{ category.name }}</a>
+  {% endfor %}
+
+  <h2>Issues</h2>
+  {% for issue in issues %}
+    <div class="issue sev-{{issue.priority}} grid-1" url="{{ issue.category.name }}-{{ issue.id }}">
+      <div class="issue-inner">
+        <h4>{{ issue.category.name }}-{{ issue.id }}</h4>
+        {{ issue.short }}
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -102,8 +102,10 @@ class Issue(models.Model):
             created_on=issue.created_on,
             updated_on=issue.updated_on,
             )
+        newissue.save()
         for user in issue.users.all():
             newissue.users.add(user)
+        newissue.save()
 
         return newissue
 
@@ -141,8 +143,10 @@ class ResolvedIssue(models.Model):
             created_on=issue.created_on,
             updated_on=issue.updated_on,
             )
+        newissue.save()
         for user in issue.users.all():
             newissue.users.add(user)
+        newissue.save()
 
         return newissue
 

@@ -1,0 +1,20 @@
+{% extends 'issues/template.html' %}
+{% block title %}
+Categories
+{% endblock title %}
+
+{% block content %}
+  {% for category in categories %}
+    <ul>
+      <li>
+        <a href="{{category.name}}">{{ category.name }}</a>
+      </li>
+      <li>
+        Open Issues: {{ category.issues.count }}
+      </li>
+      <li>
+        Resolved Issues: {{ category.resolvedissues.count }}
+      </li>
+    </ul>
+  {% endfor %}
+{% endblock content %}

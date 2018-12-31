@@ -1,0 +1,24 @@
+{% extends 'issues/template.html' %}
+{% block title %}
+Category: {{ category.name }}
+{% endblock title %}
+
+{% block content %}
+  <h2>
+    <a href="{{category.name}}">{{ category.name }}</a>
+  </h2>
+  
+  <div>
+    <a href="#">Sort...</a>
+  </div>
+  <div class="issues-grid">
+    {% for issue in category.issues.all %}
+    <div class="issue sev-{{issue.priority}} grid-1" url="{{ issue.category.name }}-{{ issue.id }}">
+      <div class="issue-inner">
+        <h4>{{ issue.category.name }}-{{ issue.id }}</h4>
+        {{ issue.short }}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock content %}

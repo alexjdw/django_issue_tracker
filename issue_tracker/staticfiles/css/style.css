@@ -374,11 +374,12 @@ input, textarea {
 }
 
 button.primary {
-  border-top: 1px solid #6dadb2;
-  border-left: 1px solid #6dadb2;
-  border-right: 1px solid #51959a;
-  border-bottom: 1px solid #6dadb2;
+  border-top: 2px solid #6dadb2;
+  border-left: 2px solid #6dadb2;
+  border-right: 2px solid #51959a;
+  border-bottom: 2px solid #6dadb2;
   background-color: #5CA4A9;
+  transition: background-color 0.2s;
 }
 button.primary:hover {
   background-color: #51959a;
@@ -401,11 +402,12 @@ button.primary:hover {
 }
 
 button.warning {
-  border-top: 1px solid #f07f71;
-  border-left: 1px solid #f07f71;
-  border-right: 1px solid #ea5543;
-  border-bottom: 1px solid #f07f71;
+  border-top: 2px solid #f07f71;
+  border-left: 2px solid #f07f71;
+  border-right: 2px solid #ea5543;
+  border-bottom: 2px solid #f07f71;
   background-color: #ED6A5A;
+  transition: background-color 0.2s;
 }
 button.warning:hover {
   background-color: #ea5543;
@@ -428,11 +430,12 @@ button.warning:hover {
 }
 
 button.grey {
-  border-top: 1px solid #637c8b;
-  border-left: 1px solid #637c8b;
-  border-right: 1px solid #4d626d;
-  border-bottom: 1px solid #637c8b;
+  border-top: 2px solid #637c8b;
+  border-left: 2px solid #637c8b;
+  border-right: 2px solid #4d626d;
+  border-bottom: 2px solid #637c8b;
   background-color: #586F7C;
+  transition: background-color 0.2s;
 }
 button.grey:hover {
   background-color: #4d626d;
@@ -455,11 +458,12 @@ button.grey:hover {
 }
 
 button.easy {
-  border-top: 1px solid #abcbc7;
-  border-left: 1px solid #abcbc7;
-  border-right: 1px solid #8bb7b1;
-  border-bottom: 1px solid #abcbc7;
+  border-top: 2px solid #abcbc7;
+  border-left: 2px solid #abcbc7;
+  border-right: 2px solid #8bb7b1;
+  border-bottom: 2px solid #abcbc7;
   background-color: #9BC1BC;
+  transition: background-color 0.2s;
 }
 button.easy:hover {
   background-color: #8bb7b1;
@@ -482,11 +486,12 @@ button.easy:hover {
 }
 
 button.light {
-  border-top: 1px solid #f3f5f0;
-  border-left: 1px solid #f3f5f0;
-  border-right: 1px solid #dae1d1;
-  border-bottom: 1px solid #f3f5f0;
+  border-top: 2px solid #f3f5f0;
+  border-left: 2px solid #f3f5f0;
+  border-right: 2px solid #dae1d1;
+  border-bottom: 2px solid #f3f5f0;
   background-color: #E6EBE0;
+  transition: background-color 0.2s;
 }
 button.light:hover {
   background-color: #dae1d1;
@@ -509,11 +514,12 @@ button.light:hover {
 }
 
 button.warm {
-  border-top: 1px solid #f8f6d1;
-  border-left: 1px solid #f8f6d1;
-  border-right: 1px solid #f0eca5;
-  border-bottom: 1px solid #f8f6d1;
+  border-top: 2px solid #f8f6d1;
+  border-left: 2px solid #f8f6d1;
+  border-right: 2px solid #f0eca5;
+  border-bottom: 2px solid #f8f6d1;
   background-color: #F4F1BB;
+  transition: background-color 0.2s;
 }
 button.warm:hover {
   background-color: #f0eca5;
