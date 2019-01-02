@@ -1,6 +1,6 @@
 from django.db import models
 from apps.users.models import User
-
+import json
 
 class Category(models.Model):
     '''
@@ -118,6 +118,7 @@ class ResolvedIssue(models.Model):
     Resolved issue. See Issue. At this time, issue ID is not preserved when
     marking an issue resolved.
     '''
+    old_id = models.IntegerField()
     creator = models.ForeignKey(User, related_name="%(class)ss_created")
     owner = models.ForeignKey(User, related_name="%(class)ss_owned", null=True)
     users = models.ManyToManyField(User, related_name="%(class)ss_joined")
@@ -127,13 +128,15 @@ class ResolvedIssue(models.Model):
     priority = models.PositiveSmallIntegerField()
     created_on = models.DateField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
-
+    resolved_on = models.DateTimeField(auto_now_add=True)
+    serialized_log = models.TextField(null=True)
     objects = IssueManager()
 
     @classmethod
     def from_issue(cls, issue):
         # works for issues or resolved issues
         newissue = cls(
+            old_id=issue.id,
             creator=issue.creator,
             owner=issue.owner,
             category=issue.category,
@@ -146,6 +149,9 @@ class ResolvedIssue(models.Model):
         newissue.save()
         for user in issue.users.all():
             newissue.users.add(user)
+
+        logs = ''.join([log.to_json() for log in issue.log_entries.all()])
+        newissue.serialized_log = logs
         newissue.save()
 
         return newissue
@@ -166,3 +172,11 @@ class IssueLogEntry(models.Model):
 
     class Meta:
         ordering = ['-created_on']
+
+    def to_json(self):
+        return json.dumps({
+            'creator': self.creator,
+            'entry': self.entry,
+            'created_on': self.created_on,
+            'updated_on': self.updated_on
+        })

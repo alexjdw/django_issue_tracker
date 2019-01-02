@@ -3,9 +3,9 @@
 {% endblock %}
 {% block content %}
 <div class="form-container">
-  <form action="/issues/create" method="POST">
+  <form action="/issues/create" method="POST" autocomplete="off">
     {% csrf_token %}
-    <div id="" class="md-inline-75">
+    <div class="md-inline-75">
       Category<br>
       <input id="category" type="text" name="category">
     </div>
@@ -17,8 +17,11 @@
 
     Issue Description
     <textarea id="desc" type="text" name="desc" placeholder="Provide as many details as possible. Try to answer the basic five: Who, What, When, Where, and Why."></textarea> Post-it
-    <textarea id="shortdesc" name="shortdesc" placeholder="Enter a post-it size description of the issue."></textarea> Notify
-    <input id="notifications" type="text" placeholder="Type names and press enter to add notifications.">
+    <textarea id="shortdesc" name="shortdesc" placeholder="Enter a post-it size description of the issue."></textarea>
+    
+    Notify
+    <input id="notifications" type="text" placeholder="Select names from the dropdown." autocomplete="off">
+    <input id="notify-ids" name="notify-ids" type="hidden">
     <button type="submit" class="warning">Submit</button>
   </form>
 </div>
@@ -30,12 +33,15 @@
       </div>
     </div>
     <div class="grid-info">
-      <div class="sev">?</div>
+      <br>
+      <span class="sev-3">?</span>
       <p>Created By: Username<br>Created: <em>Now</em><br>Updated: <em>Now</em></p>
     </div>
     <div class="grid-footer">
+      <h4>Issue Details:</h4>
     </div>
   </div>
-
+  <ul id="notify-users">
+  </ul>
 </div>
 {% endblock content %}
