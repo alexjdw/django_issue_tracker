@@ -163,7 +163,6 @@ $(document).ready(function() {
         console.log(context);
         $.ajax({
             url: $(this).attr('action'),
-            method: 'POST',
             data: data,
             context: context
             })
@@ -213,7 +212,7 @@ $(document).ready(function() {
             var context = $(this).prev('.edit');
             console.log(context);
             $.ajax({
-                url: '/super/edit/' + issueid,
+                url: '/super/edit-priority/' + issueid,
                 data: data,
                 context: context
                 })
@@ -228,7 +227,6 @@ $(document).ready(function() {
                     $(this).delay(500).fadeIn();
                     $(this).delay(500).css('color', 'red');
                     console.log("response:", response);
-                    //some kind of error message
                 });
         }
     });

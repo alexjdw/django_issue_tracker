@@ -3,7 +3,7 @@
 <html lang='en'>
 <head>
   <title>{% block title %}{% endblock %} Yourcompany.com Issue Tracker by Alex</title>
-  {% include 'imports.html' %}
+  {% include 'lib/imports.html' %}
 </head>
 <body>
   <nav>
@@ -49,9 +49,10 @@
     </ul>
   </nav>
   <main>
+    {%include 'lib/errors.html' %}
     {% block content %} {% endblock %}
   </main>
-  {% include 'jsimports.html' %}
+  {% include 'lib/jsimports.html' %}
 </body>
 
 </html>

@@ -1,14 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from apps.issues.models import Issue, ResolvedIssue
-from apps.users.models import User
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseBadRequest
+from apps.issues.models import Issue, ResolvedIssue
+from apps.users.models import User
+from apps.lib.decorators import get_issue_from_issueno
 
-# Route for testing the template.
-# def template(request):
-#     return render(request, 'admins/template.html')
 
 def require_adminpage(func):
     '''
@@ -37,52 +35,40 @@ def admin_home(request):
 
     context = {
         'issues': Issue.objects.all(),
-        'resolvedissues': ResolvedIssue.objects.all().order_by('-created_on')[0:9],
+        'resolvedissues': 
+            ResolvedIssue.objects.all().order_by('-created_on')[0:9],
     }
 
     return render(request, 'admins/admin.html', context)
 
 
 @require_adminpage
-def add_user_to_issue(request, issueno):
+@get_issue_from_issueno
+def add_user_to_issue(request, issue):
     '''
     AJAX POST route for admins to add an issue to a user's watch list.
 
     -> Partial with HTML for the admin table.
     '''
-    if request.method != 'POST':
-        messages.error('Request type was not POST.')
-        return redirect(admin_home)
 
-    if not request.user.permissions.adminpage:
-        messages.error('User lacks privleges to make this request.')
-        return redirect('/')
-
-    try:
-        issue = Issue.objects.get(id=issueno)
-    except ObjectDoesNotExist:
-        messages.error('This issue no longer exists.')
-        return redirect(admin_home)
-
-    for id in request.POST.get('ids').split():
+    for id in request.GET.get('ids').split():
         try:
             issue.users.add(User.objects.get(id=int(id)))
         except ObjectDoesNotExist:
-            pass
+            # Someone submitted an invalid user ID.
+            messages.error("An invalid user ID was sumbitted, so not all "
+                           + "of the requested users were added.")
 
     issue.save()
 
-    context = {
-        'issue': issue
-    }
-
-    return render(request, 'admins/partials/users-td.html', context=context)
+    return render(request, 'admins/partials/users-td.html',  {'issue': issue})
 
 
 @require_adminpage
-def edit(request, issueno):
+@get_issue_from_issueno
+def edit_priority(request, issue):
     '''
-    Handles multiple AJAX routes for the administration site based on the post data.
+    Edits the priority of an issue.
 
     -> HTML Partial to insert into the page.
     '''
@@ -90,23 +76,8 @@ def edit(request, issueno):
     if not request.user.permissions.adminpage:
         return HttpResponseBadRequest()
 
-    partial_templates = {
-            'sev': 'admins/partials/sev-td.html',
-            }
-
-    try:
-        issue = Issue.objects.get(id=issueno)
-    except ObjectDoesNotExist:
-        return HttpResponseBadRequest()
-
-    partial = None
-    for key in request.GET.keys():
-        if key in partial_templates:
-            partial = partial_templates[key]
-            break
-
-    if partial is None or issue is None:
-        return HttpResponseBadRequest()
+    print(request.GET)
+    partial = 'admins/partials/sev-td.html'
 
     if 'sev' in request.GET:
         if 1 <= int(request.GET['sev']) <= 5:
@@ -119,5 +90,17 @@ def edit(request, issueno):
 
 
 @require_adminpage
-def set_issue_owner(request, issueno):
-    return HttpResponseBadRequest()
+@get_issue_from_issueno
+def set_owner(request, issue):
+    '''
+    AJAX GET route for updating an issue's owner id.
+    '''
+    partial = 'admins/partials/owner-td.html'
+    owner_id = request.GET.get('ids').strip()
+    try:
+        issue.owner = User.objects.get(id=owner_id)
+    except ObjectDoesNotExist:
+        return HttpResponseBadRequest("Owner does not exist: ", owner_id)
+
+    issue.save()
+    return render(request, partial, {issue: issue})
