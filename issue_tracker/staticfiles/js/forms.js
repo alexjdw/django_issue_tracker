@@ -1,9 +1,3 @@
-// Constants
-var autocomplete_lists = new Object();
-
-
-
-
 $(document).ready(function() {
     // Autocomplete off
     if (document.getElementsByTagName) {
@@ -19,6 +13,7 @@ $(document).ready(function() {
     $.getJSON(
         '/api/categories?format=json',
         function(json) {
+            var autocomplete_lists = {};
             autocomplete_lists['.nav-search'] = [];
             autocomplete_lists['#category'] = [];
 
@@ -38,6 +33,7 @@ $(document).ready(function() {
     $.getJSON(
         '/api/users/?format=json',
         function(json) {
+            var autocomplete_lists = {};
             autocomplete_lists['#notifications'] = [];
             $.each(json, function(item) {
                 autocomplete_lists['#notifications'].push(
@@ -46,7 +42,6 @@ $(document).ready(function() {
                         value: json[item].id
                     });
             });
-            console.log(autocomplete_lists['#notifications']);
             $('#notifications').autocomplete({
                 source: autocomplete_lists['#notifications'],
                 autoFocus: true,
@@ -109,25 +104,26 @@ $(document).ready(function() {
 
     $('.show-modal').on('click', function(e) {
         $('#modal-selected-users').html('');
+        $('#modal-selected-users').attr(
+            'modal-max-selections', 
+            $(this).attr('modal-max-selections')
+            );
+
         $('.modal').fadeIn(200);
         $('#modal-loader').fadeIn(200);
         $('#modal-form').attr(
             'action',
-            "add-users/" + $(this).attr('modal-issue-id')
-        );
-        $('#modal-form').attr(
-            'issue-id',
-            $(this).attr('modal-issue-id')
+            $(this).attr('modal-action')
         );
         e.preventDefault();
 
         $.getJSON(
             '/api/users?format=json',
             function(json) {
+                var autocomplete_lists = {};
                 autocomplete_lists['.modal-users'] = [];
 
                 $.each(json, function(item) {
-                    console.log(json[item]);
                     autocomplete_lists['.modal-users'].push(
                         {
                             label: json[item].first_name + ' ' + json[item].last_name + ', ' + json[item].email,
@@ -135,17 +131,22 @@ $(document).ready(function() {
                         }
                     );
                 });
-                console.log(autocomplete_lists);
+
                 $('.modal-users').autocomplete({
                     source: autocomplete_lists['.modal-users'],
                     autoFocus: true,
-                    select: function(event, ui) {
-                        $('#modal-selected-users').append(
-                            '<li><span class="tag light">' + ui.item.label + '</span></li>'
-                        );
-                        $('input#ids').val(
-                            $('input#ids').val() + ' ' + ui.item.value
-                        );
+                    select: function(e, ui) {
+                        $('.modal-users').val('');
+                        if ($('#modal-selected-users').children('li').length < $('#modal-selected-users').attr('modal-max-selections')
+                            && $('#modal-selected-users:contains("'+ui.item.label+'")').length == 0) {
+                            $('#modal-selected-users').append(
+                                '<li><span class="tag light">' + ui.item.label + '</span></li>'
+                            );
+                            $('input#ids').val(
+                                $('input#ids').val() + ' ' + ui.item.value
+                            );
+                        }
+                        return false;
                     }
                 });
                 $('#modal-loader').fadeOut();
@@ -196,5 +197,39 @@ $(document).ready(function() {
             .fail(function(response) {
                 console.log("Request failed.")
             });
+    });
+
+    $('.edit').on('click', function() {
+        $(this).hide();
+        $(this).next().show();
+    });
+
+    $('.edit-show').on('keydown', function(e) {
+        if (e.keyCode == 13) {
+            $(this).hide();
+            $(this).siblings('.loader-sm').fadeIn();
+            var issueid = $(this).parents('tr').attr('issue-id');
+            var data = $(this).serialize();
+            var context = $(this).prev('.edit');
+            console.log(context);
+            $.ajax({
+                url: '/super/edit/' + issueid,
+                data: data,
+                context: context
+                })
+                .done(function(response) {
+                    $(this).css('color', '');
+                    $(this).siblings('.loader-sm').fadeOut();
+                    $(this).html(response);
+                    $(this).delay(500).fadeIn();
+                })
+                .fail(function(response) {
+                    $(this).siblings('.loader-sm').fadeOut(100);
+                    $(this).delay(500).fadeIn();
+                    $(this).delay(500).css('color', 'red');
+                    console.log("response:", response);
+                    //some kind of error message
+                });
+        }
     });
 });
