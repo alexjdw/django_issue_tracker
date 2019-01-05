@@ -8,6 +8,7 @@ The purpose of this project is to demonstrate a CRUD application that implements
 
 ## Getting Started
 
+```
 Ensure Python 3.6 is installed
 Clone the Repo
 Navigate to the root directory.
@@ -16,7 +17,6 @@ Set up your virtual environment with Python 3.6 (something like: virtualenv --py
 Activate your virtual environment (usually: source .venv/bin/activate)
 Run the following commands:
 
-```
 pip install -r requirements.txt
 cd issue_tracker
 ./manage.py makemigrations
