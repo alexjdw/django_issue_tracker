@@ -100,8 +100,6 @@ $(document).ready(function() {
             );
     });
 
-
-
     $('.show-modal').on('click', function(e) {
         $('#modal-selected-users').html('');
         $('#modal-selected-users').attr(
@@ -228,6 +226,14 @@ $(document).ready(function() {
                     $(this).delay(500).css('color', 'red');
                     console.log("response:", response);
                 });
+        }
+    });
+
+    $(document).on('keyup', function(e) {
+        if (e.keyCode == 27) {
+            //escape pressed
+            $('.edit-show').hide();
+            $('.edit').show();
         }
     });
 });

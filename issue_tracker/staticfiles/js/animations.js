@@ -34,4 +34,14 @@ $(document).ready(function() {
     $('.x').on('click', function(e) {
         $('.modal').fadeOut(200);
     });
+
+    $('.dismissable .close').on('click', function(e) {
+        $(this).fadeOut("fast");
+        $(this).siblings().fadeOut("fast");
+        $(this).parent().animate({
+            'width': 0,
+            'height': 0,
+            })
+            .hide("slow");
+        });
 });

@@ -1,0 +1,17 @@
+bcrypt==3.1.5
+cffi==1.11.5
+dateparser==0.7.0
+Django==1.11.7
+django-debug-toolbar==1.11
+django-extensions==2.1.4
+django-filter==2.0.0
+djangorestframework==3.9.0
+Markdown==3.0.1
+pycparser==2.19
+python-dateutil==2.7.5
+pytz==2018.7
+regex==2018.11.22
+six==1.12.0
+sqlparse==0.2.4
+tzlocal==1.5.1
+websockets==7.0

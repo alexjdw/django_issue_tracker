@@ -35,7 +35,7 @@ Issue {{ issueno }}:
         <form action="{{ issue.category.name }}-{{issue.id}}/log" method="POST">
           {% csrf_token %}
           <textarea name="logtext" placeholder="Add a comment to this issue."></textarea>
-          <button>Post Comment</button>
+          <button class="primary">Post Comment</button>
         </form>
         {% for log in issue.log_entries.all %}
           <h4>{{ log.creator.first_name }}</h4>

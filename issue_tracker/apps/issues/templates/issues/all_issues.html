@@ -3,17 +3,24 @@
 Open Issues:
 {% endblock %}
 {% block content %}
-    <div>
-      <a href="#">Sort...</a>
-    </div>
-    <div class="issues-grid">
-      {% for issue in issues %}
-      <div class="issue sev-{{issue.priority}} grid-1" url="{{ issue.category.name }}-{{ issue.id }}">
-        <div class="issue-inner">
-          <h4>{{ issue.category.name }}-{{ issue.id }}</h4>
-          {{ issue.short }}
-        </div>
+  <div class="center">
+    <div class="dismissable error">
+      <div class="close">
+        <i class="fas fa-times"></i>
       </div>
-      {% endfor %}
+      <p class="inner">
+        Message!
+      </p>
     </div>
+  </div>
+  <div class="issues-grid">
+    {% for issue in issues %}
+    <div class="issue sev-{{issue.priority}} grid-1" url="{{ issue.category.name }}-{{ issue.id }}">
+      <div class="issue-inner">
+        <h4>{{ issue.category.name }}-{{ issue.id }}</h4>
+        {{ issue.short }}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 {% endblock content %}

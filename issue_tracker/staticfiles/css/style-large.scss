@@ -11,6 +11,10 @@
     display: none;
   }
 
+  .dismissable {
+    width: 60%;
+  }
+  
   .informative-grid {
     display: grid;
     grid-template-columns: 50px 50px 200px auto;

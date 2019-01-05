@@ -5,55 +5,62 @@ $c-light: #E6EBE0;
 $c-white: lighten($c-light, 7%);
 $c-warm: #F4F1BB;
 $c-grey: #586F7C;
+$c-black: darken($c-grey, 25%);
 
 $cmap: (
   "primary": (
-    color: $c-primary,
-    border-top: lighten($c-primary, 5%),
-    border-left: lighten($c-primary, 5%),
-    border-right: darken($c-primary, 5%),
-    border-bottom: darken($c-primary, 5%),
-    hover: darken($c-primary, 5%)
+    bg-color: $c-primary,
+    txt-color: $c-light,
+    border-top: lighten($c-primary, 3%),
+    border-left: lighten($c-primary, 3%),
+    border-right: darken($c-primary, 3%),
+    border-bottom: darken($c-primary, 3%),
+    hover: lighten($c-primary, 3%)
   ),
   "warning": (
-    color: $c-warning,
-    border-top: lighten($c-warning, 5%),
-    border-left: lighten($c-warning, 5%),
-    border-right: darken($c-warning, 5%),
-    border-bottom: darken($c-warning, 5%),
-    hover: darken($c-warning, 5%)
+    bg-color: $c-warning,
+    txt-color: $c-light,
+    border-top: lighten($c-warning, 3%),
+    border-left: lighten($c-warning, 3%),
+    border-right: darken($c-warning, 3%),
+    border-bottom: darken($c-warning, 3%),
+    hover: darken($c-warning, 3%)
   ),
   "grey": (
-    color: $c-grey,
-    border-top: lighten($c-grey, 5%),
-    border-left: lighten($c-grey, 5%),
-    border-right: darken($c-grey, 5%),
-    border-bottom: darken($c-grey, 5%),
-    hover: darken($c-grey, 5%)
+    bg-color: $c-grey,
+    txt-color: $c-light,
+    border-top: lighten($c-grey, 3%),
+    border-left: lighten($c-grey, 3%),
+    border-right: darken($c-grey, 3%),
+    border-bottom: darken($c-grey, 3%),
+    hover: darken($c-grey, 3%)
   ),
   "easy": (
-    color: $c-easy,
-    border-top: lighten($c-easy, 5%),
-    border-left: lighten($c-easy, 5%),
-    border-right: darken($c-easy, 5%),
-    border-bottom: darken($c-easy, 5%),
-    hover: darken($c-easy, 5%)
+    bg-color: $c-easy,
+    txt-color: $c-black,
+    border-top: lighten($c-easy, 3%),
+    border-left: lighten($c-easy, 3%),
+    border-right: darken($c-easy, 3%),
+    border-bottom: darken($c-easy, 3%),
+    hover: darken($c-easy, 3%)
   ),
   "light": (
-    color: $c-light,
-    border-top: lighten($c-light, 5%),
-    border-left: lighten($c-light, 5%),
-    border-right: darken($c-light, 5%),
-    border-bottom: darken($c-light, 5%),
-    hover: darken($c-light, 5%)
+    bg-color: $c-light,
+    txt-color: $c-black,
+    border-top: lighten($c-light, 3%),
+    border-left: lighten($c-light, 3%),
+    border-right: darken($c-light, 3%),
+    border-bottom: darken($c-light, 3%),
+    hover: darken($c-light, 3%)
   ),
   "warm": (
-    color: $c-warm,
-    border-top: lighten($c-warm, 5%),
-    border-left: lighten($c-warm, 5%),
-    border-right: darken($c-warm, 5%),
-    border-bottom: darken($c-warm, 5%),
-    hover: darken($c-warm, 5%)
+    bg-color: $c-warm,
+    txt-color: $c-black,
+    border-top: lighten($c-warm, 3%),
+    border-left: lighten($c-warm, 3%),
+    border-right: darken($c-warm, 3%),
+    border-bottom: darken($c-warm, 3%),
+    hover: darken($c-warm, 3%)
   ),
 );
 
@@ -76,6 +83,46 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .hide {
   display: none;
+}
+
+.center {
+  text-align: center;
+}
+
+.dismissable {
+  width: 90%;
+  display: inline-block;
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid;
+
+  .inner {
+    display: block;
+  }
+
+  .close {
+    float: right;
+    margin: 3px 12px 0px 0px;
+    cursor: pointer;
+  }
+  
+  &.info {
+    color: darken($c-warm, 30%);
+    background-color: lighten($c-warm, 25%);
+    border-color: darken($c-warm, 20%);
+  }
+
+  &.warning {
+    color: darken($c-easy, 40%);
+    background-color: lighten($c-easy, 15%);
+    border-color: darken($c-easy, 30%);
+  }
+
+  &.error {
+    color: darken($c-warning, 30%);
+    background-color: lighten($c-warning, 25%);
+    border-color: darken($c-warning, 20%);
+  }
 }
 
 body {
@@ -102,15 +149,22 @@ input, textarea {
     border-left: 2px solid #{map-get($color, border-left)};
     border-right: 2px solid #{map-get($color, border-right)};
     border-bottom: 2px solid #{map-get($color, border-top)};
-    background-color: #{map-get($color, color)};
+    background-color: #{map-get($color, bg-color)};
+    color: #{map-get($color, txt-color)};
     transition: background-color .2s;
     
     &:hover {
       background-color: #{map-get($color, hover)};
-      border-top-color: darken(map-get($color, border-top), 5%);
-      border-left-color: darken(map-get($color, border-left), 5%);
-      border-right-color: darken(map-get($color, border-right), 5%);
-      border-bottom-color: darken(map-get($color, border-bottom), 5%);
+      border-top-color: lighten(map-get($color, border-top), 3%);
+      border-left-color: lighten(map-get($color, border-left), 3%);
+      border-right-color: lighten(map-get($color, border-right), 3%);
+      border-bottom-color: lighten(map-get($color, border-bottom), 3%);
+    }
+    
+    &:active {
+      margin-top: 1px;
+      margin-bottom: -1px;
+      outline: none;
     }
   }
 
