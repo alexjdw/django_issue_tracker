@@ -2,7 +2,9 @@
 
 Welcome to my demo project: a handmade, Django-based, responsive, full-CRUD issue tracker using Django, Django Rest Framework, and SQLite.
 
-Every element of this page is hand-coded by me, and I purposefully avoided using the familiar Foundation and Bootstrap or using a predesigned website layout. I now understand the consequences of my actions and am willing to apologize in person to your eyes if needed. I am a reformed man who will let the professional designers do their job in the future. Please see the disclaimer section below for more details.
+Every element of this project is hand-coded by me, and I purposefully avoided using the familiar Foundation and Bootstrap frameworks or using a predesigned website layout. I now understand the consequences of my actions. I am a reformed man who will let the professional designers do their job in the future. Please see the disclaimer section below for more details.
+
+The purpose of this project is to demonstrate a CRUD application that implements the most common features used on the web today. I decided on Django for a server framework and worked in a thorough API, custom SCSS, and responsive design elements. AJAX with jQuery is used for the majority of dynamic content, and everyone's favorite JQuery UI handles the user interface. It worked so well for me that I started tracking its own issues and planned features!
 
 ## Getting Started
 
