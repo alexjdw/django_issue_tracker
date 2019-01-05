@@ -1,4 +1,6 @@
 {% for user in issue.users.all %}
-  <button class="warning hide"><i class="fas fa-minus-circle"></i></button>
+  <button class="remove-user warning icon small hide" uid={{user.id}} issueid={{issue.id}}>
+    <i class="fas fa-minus"></i>
+  </button>
   <a href="mailto:{{user.email}}?subject=Issue%20{{issue.category.name}}-{{issue.id}}" title="{{user.first_name}} {{user.last_name}} | {{user.email}}">{{ user.first_name }}</a>
 {% endfor %}

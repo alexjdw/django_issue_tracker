@@ -1,4 +1,4 @@
-$c-primary: #5CA4A9;
+$c-primary: #5ca4a9;
 $c-warning: #ED6A5A;
 $c-easy: #9BC1BC;
 $c-light: #E6EBE0;
@@ -134,6 +134,31 @@ button {
   background-color: inherit;
   border: 0;
   border-radius: 8px;
+  margin: .1rem;
+}
+
+button, input {
+  &:active {
+    outline: none;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+button.icon {
+  font-size: .9rem;
+  line-height: .9rem;
+  text-align: center;
+  padding: .2rem;
+  border-radius: 50%;
+}
+
+button.small.icon {
+  font-size: 10px;
+  line-height: 10px;
+  padding: 1px;
+  vertical-align: top;
 }
 
 input, textarea {
@@ -237,6 +262,7 @@ nav {
 }
 
 nav a,
+nav li,
 nav div.expand {
   color: $c-white;
 }
@@ -248,6 +274,26 @@ nav div.expand {
 
 .collapse {
   display: none;
+}
+
+.dropdown {
+  display: none;
+}
+
+.dropdown li {
+  background-color: $c-primary;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-toggle i {
+  transition: transform .3s ease-out;
+}
+
+.dropdown-toggle.active i {
+  transform: rotate(90deg);
 }
 
 nav ul .collapse li {
@@ -358,7 +404,7 @@ main {
 }
 
 input, textarea {
-  display: block;
+  display: inline-block;
   width: 100%;
   box-sizing: border-box;
   padding: .5rem;
@@ -382,8 +428,12 @@ table {
   }
 }
 
-tr.selected {
-  background-color: $c-light;
+tr, td {
+  transition: background-color .6s ease-in-out;
+}
+
+tr.selected, td.selected {
+  background-color: $c-warm;
 }
 
 td, th {
@@ -464,6 +514,10 @@ div.issue-inner h4 {
   padding: .1em;
   text-align: center;
   margin: auto;
+}
+
+.sev-td:hover {
+  cursor: pointer;
 }
 
 @import 'style-medium';

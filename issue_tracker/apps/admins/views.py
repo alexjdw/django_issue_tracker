@@ -35,7 +35,7 @@ def admin_home(request):
 
     context = {
         'issues': Issue.objects.all(),
-        'resolvedissues': 
+        'resolvedissues':
             ResolvedIssue.objects.all().order_by('-created_on')[0:9],
     }
 
@@ -61,6 +61,13 @@ def add_user_to_issue(request, issue):
 
     issue.save()
 
+    return render(request, 'admins/partials/users-td.html',  {'issue': issue})
+
+
+@require_adminpage
+@get_issue_from_issueno
+def remove_user_from_issue(request, issue):
+    issue.users.remove(request.GET['id'])
     return render(request, 'admins/partials/users-td.html',  {'issue': issue})
 
 
@@ -103,4 +110,4 @@ def set_owner(request, issue):
         return HttpResponseBadRequest("Owner does not exist: ", owner_id)
 
     issue.save()
-    return render(request, partial, {issue: issue})
+    return render(request, partial, {'issue': issue})

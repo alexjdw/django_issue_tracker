@@ -67,7 +67,7 @@
   nav ul.collapse li,
   nav ul li {
     padding: 1rem;
-    display: flex;
+    display: inline-block;
     height: 100%;
     flex-direction: column;
     align-items: center;
@@ -76,6 +76,21 @@
 
   .nav-right {
     margin-left: auto;
+  }
+
+  .dropdown {
+    position: absolute;
+    min-width: 160px;
+    max-width: 160px;
+    height: auto;
+    top: 3.5em;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+
+    li {
+      display: block;
+      width: 100%;
+    }
   }
 
   .form-preview, .form-container {

@@ -17,18 +17,19 @@
       <ul class="collapse">
         <li>
           <a href="/issues/all">Open Issues</a>
+          {% include 'lib/nav-issues.html' %}
+        </li>
+        {% if request.user.permissions.adminpage %}
+        <li>
+          <a href="/super">Manage<a>
+        </li>
+        {% endif %}
+        <li>
+          <a href="/user">Profile</a>
+          {% include 'lib/nav-user.html'%}
         </li>
         <li>
-          <a href="/issues/my">My Issues</a>
-        </li>
-        <li>
-          <a href="/issues/team">Team</a>
-        </li>
-        <li>
-          <a href="/issues/all/priority" class="nav nav-priority">Priority</a>
-        </li>
-        <li>
-          <a href="/issues/new">New</a>
+          <a href="/issues/new">New <i class="fas fa-plus"></i></a>
         </li>
         <li class="nav-right">
           <form action="/issues/search" method="GET">

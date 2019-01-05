@@ -1,10 +1,32 @@
+function removeuser(e) {
+    $.ajax({
+            url: 'remove-user/' + $(this).attr('issueid'),
+            data: 'id=' + $(this).attr('uid'),
+            context: $(this).parent('td')
+        })
+        .done(function(response) {
+            $(this).html(response);
+            $(this).click(removeuser);
+        })
+        .fail(function(response) {
+            console.log("Error: ");
+            console.log(response);
+        });
+}
+
+function clean_modal_form() {
+    $('#modal-selected-users').html('');
+    $('#ids').val('');
+    $('.modal-target').removeClass('modal-target');
+}
+
 $(document).ready(function() {
     // Autocomplete off
     if (document.getElementsByTagName) {
         var inputElements = document.getElementsByTagName("input");
-        for (i=0; inputElements[i]; i++) {
+        for (i = 0; inputElements[i]; i++) {
             if (inputElements[i].className && (inputElements[i].className.indexOf("disableAutoComplete") != -1)) {
-                inputElements[i].setAttribute("autocomplete","off");
+                inputElements[i].setAttribute("autocomplete", "off");
             }
         }
     }
@@ -36,11 +58,10 @@ $(document).ready(function() {
             var autocomplete_lists = {};
             autocomplete_lists['#notifications'] = [];
             $.each(json, function(item) {
-                autocomplete_lists['#notifications'].push(
-                    {
-                        label: json[item].first_name + ' ' + json[item].last_name + ', ' + json[item].email,
-                        value: json[item].id
-                    });
+                autocomplete_lists['#notifications'].push({
+                    label: json[item].first_name + ' ' + json[item].last_name + ', ' + json[item].email,
+                    value: json[item].id
+                });
             });
             $('#notifications').autocomplete({
                 source: autocomplete_lists['#notifications'],
@@ -79,11 +100,11 @@ $(document).ready(function() {
     /* Generate the preview */
     $('#shortdesc, #desc, #severity, #category').keyup(function(e) {
         $('.issue-inner').html(
-            '<h4>'
-            + $('#category').val()
-            + '-###</h4>'
-            + $('#shortdesc').val()
-            );
+            '<h4>' +
+            $('#category').val() +
+            '-###</h4>' +
+            $('#shortdesc').val()
+        );
         var sev = '?';
         var sevclass = '3';
         if ($('#severity').val().length > 0) {
@@ -91,22 +112,24 @@ $(document).ready(function() {
             sevclass = $('#severity').val();
         }
         $('.grid-info').html(
-            '<br><span class="sev-' + sevclass + '">' 
-            + sev 
-            + '</span><p>Created By: Username<br>Created: <em>Now</em><br>Updated: <em>Now</em></p>'
+            '<br><span class="sev-' + sevclass + '">' +
+            sev +
+            '</span><p>Created By: Username<br>Created: <em>Now</em><br>Updated: <em>Now</em></p>'
         );
         $('.grid-footer').html(
             '<h4>Issue Details</h4>' + $('#desc').val()
-            );
+        );
     });
 
     $('.show-modal').on('click', function(e) {
-        $('#modal-selected-users').html('');
+        // Clean up the form and set its properties.
+        clean_modal_form();
         $('#modal-selected-users').attr(
-            'modal-max-selections', 
+            'modal-max-selections',
             $(this).attr('modal-max-selections')
-            );
+        );
 
+        // Show the pop-up form.
         $('.modal').fadeIn(200);
         $('#modal-loader').fadeIn(200);
         $('#modal-form').attr(
@@ -115,6 +138,9 @@ $(document).ready(function() {
         );
         e.preventDefault();
 
+        $(this).parent().prev().addClass('modal-target');
+
+        // Populate the autocomplete.
         $.getJSON(
             '/api/users?format=json',
             function(json) {
@@ -122,12 +148,10 @@ $(document).ready(function() {
                 autocomplete_lists['.modal-users'] = [];
 
                 $.each(json, function(item) {
-                    autocomplete_lists['.modal-users'].push(
-                        {
-                            label: json[item].first_name + ' ' + json[item].last_name + ', ' + json[item].email,
-                            value: json[item].id
-                        }
-                    );
+                    autocomplete_lists['.modal-users'].push({
+                        label: json[item].first_name + ' ' + json[item].last_name + ', ' + json[item].email,
+                        value: json[item].id
+                    });
                 });
 
                 $('.modal-users').autocomplete({
@@ -135,8 +159,8 @@ $(document).ready(function() {
                     autoFocus: true,
                     select: function(e, ui) {
                         $('.modal-users').val('');
-                        if ($('#modal-selected-users').children('li').length < $('#modal-selected-users').attr('modal-max-selections')
-                            && $('#modal-selected-users:contains("'+ui.item.label+'")').length == 0) {
+                        if ($('#modal-selected-users').children('li').length < $('#modal-selected-users').attr('modal-max-selections') &&
+                            $('#modal-selected-users:contains("' + ui.item.label + '")').length == 0) {
                             $('#modal-selected-users').append(
                                 '<li><span class="tag light">' + ui.item.label + '</span></li>'
                             );
@@ -148,7 +172,7 @@ $(document).ready(function() {
                     }
                 });
                 $('#modal-loader').fadeOut();
-        });
+            });
     });
 
     $('#modal-form').submit(function(e) {
@@ -156,22 +180,22 @@ $(document).ready(function() {
         var data = $(this).serialize();
         // Select the TD element to pass it to the .done handler.
         var context = $(this).attr('issue-id');
-        context = $('td[modal-issue-id="' + context + '"]');
+        context = $('.modal-target');
         $('#modal-loader').fadeIn();
         console.log(context);
         $.ajax({
-            url: $(this).attr('action'),
-            data: data,
-            context: context
+                url: $(this).attr('action'),
+                data: data,
+                context: context
             })
             .done(function(response) {
-                console.log(response);
                 $(this).html(response);
+                console.log($(this));
                 $('#modal-loader').fadeOut();
                 $('.modal').fadeOut();
             })
-            .fail(function(response){
-                console.log("Error");
+            .fail(function(response) {
+                console.log("Error: ");
                 console.log(response);
                 $('#modal-loader').fadeOut();
             });
@@ -184,9 +208,9 @@ $(document).ready(function() {
         context = $('#issue-' + context);
 
         $.ajax({
-            data: data,
-            url: $(this).attr('action'),
-            context: context
+                data: data,
+                url: $(this).attr('action'),
+                context: context
             })
             .done(function(response) {
                 $(this).fadeOut();
@@ -196,9 +220,37 @@ $(document).ready(function() {
             });
     });
 
-    $('.edit').on('click', function() {
-        $(this).hide();
-        $(this).next().show();
+    $('.edit, td.sev-td').on('click', function(e) {
+        if (e.target.nodeName == "INPUT") {
+            return false;
+        }
+        
+        var text = $(this);
+
+        if ($(this).hasClass('sev-td')) {
+            text = $(this).children('.edit').first();
+            console.log(text);
+        }
+
+        if (text.is(':animated')) {
+            return false;
+        }
+
+        if (text.is(':visible')) {
+            text.fadeToggle(200);
+            text.next().delay(200).fadeToggle(200);
+        } else {
+            text.delay(200).fadeToggle(200);
+            text.next().fadeToggle(200);
+        }
+
+        text.parent('td').toggleClass('selected');
+        return false;
+    });
+
+    $('.dropdown-toggle').on('click', function(e) {
+        $(this).next().slideToggle()
+        $(this).toggleClass('active');
     });
 
     $('.edit-show').on('keydown', function(e) {
@@ -210,9 +262,9 @@ $(document).ready(function() {
             var context = $(this).prev('.edit');
             console.log(context);
             $.ajax({
-                url: '/super/edit-priority/' + issueid,
-                data: data,
-                context: context
+                    url: '/super/edit-priority/' + issueid,
+                    data: data,
+                    context: context
                 })
                 .done(function(response) {
                     $(this).css('color', '');
@@ -229,11 +281,14 @@ $(document).ready(function() {
         }
     });
 
+    $('.remove-user').on('click', removeuser);
+
     $(document).on('keyup', function(e) {
         if (e.keyCode == 27) {
             //escape pressed
             $('.edit-show').hide();
             $('.edit').show();
+            $('.modal').hide();
         }
     });
 });

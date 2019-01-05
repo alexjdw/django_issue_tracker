@@ -1,7 +1,9 @@
 {% extends 'admins/template.html' %}
+
 {% block title %}
 Administration:
 {% endblock title %}
+
 {% block content %}
     <div>
       <table>
@@ -9,11 +11,12 @@ Administration:
           <tr>
             <th class="t-0">ID</th>
             <th class="t-0">Sev</th>
-            <th class="t-3">Users</th>
+            <th class="t-5">Description</th>
+            <th class="t-2">Users</th>
             <th class="t-0"></th>
             <th class="t-1">Owner</th>
             <th class="t-0"></th>
-            <th class="t-7">Updates</th>
+            <th class="t-4">Updates</th>
           </tr>
         </thead>
         <tbody>
@@ -22,20 +25,23 @@ Administration:
             <td>
               <span class="sm-show">ID: </span><a href="/issues/{{issue.id}}">{{ issue.id }}</a>
             </td>
-            <td>
+            <td class="sev-td">
               {% include 'admins/partials/sev-td.html' with issue=issue %}
+            </td>
+            <td>
+              {{ issue.short }}
             </td>
             <td modal-issue-id="{{issue.id}}">
               {% include 'admins/partials/users-td.html' with issue=issue %}
             </td>
             <td>
-              <button class="show-modal primary" modal-action="add-users/{{issue.id}}" modal-max-selections="25"><i class="fas fa-plus-circle"></i></button>
+              <button class="show-modal primary icon" modal-action="add-users/{{issue.id}}" modal-max-selections="25"><i class="fas fa-plus"></i></button>
             </td>
             <td>
               {% include 'admins/partials/owner-td.html' with issue=issue %}
             </td>
             <td>
-                <button class="show-modal primary" modal-action="set-owner/{{issue.id}}" modal-max-selections="1"><i class="fas fa-edit"></i></button>
+                <button class="show-modal primary icon" modal-action="set-owner/{{issue.id}}" modal-max-selections="1"><i class="fas fa-edit"></i></button>
             </td>
             <td>
               {% with issue.log_entries.first.creator as user %}
