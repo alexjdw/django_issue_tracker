@@ -12,7 +12,8 @@ The purpose of this project is to demonstrate a CRUD application that implements
 Ensure Python 3.6 is installed
 Clone the Repo
 Navigate to the root directory.
-Set up your virtual environment with Python 3.6 (something like: virtualenv --python=/opt/python-3.6/bin/python .venv)
+Set up your virtual environment with Python 3.6:
+virtualenv --python=/opt/python-3.6/bin/python .venv
 **Note: Django 1.11 currently does not play well with Python 3.7. Please ensure to use Python 3.6!**
 Activate your virtual environment (usually: source .venv/bin/activate)
 Run the following commands:
@@ -24,7 +25,7 @@ cd issue_tracker
 ./manage.py shell
 ```
 
-You should see the dependencies install, and django should make the initial database migrations. After running the shell command, a shell will open. Let's make an administrator with the following commands in the shell:
+You should see the dependencies install, and Django should make the initial database migrations. After running the shell command, a shell will open. Let's make an administrator with the following commands in the shell:
 
 ```
 >> from apps.users.models import User
