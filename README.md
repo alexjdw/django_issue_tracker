@@ -100,6 +100,7 @@ It's possible to go live with this project as is, and I have tested recent build
 * JQuery UI and Styling for JQuery UI
 * Proper project layout in Django
 * APIs!
+* Search!
 
 ## Contributing
 
