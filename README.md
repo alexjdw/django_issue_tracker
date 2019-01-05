@@ -1,4 +1,4 @@
-# Sticky Ickies: A Django Issue Tracker
+# Sticky Notes: A Django Issue Tracker
 
 Welcome to my demo project: a handmade, Django-based, responsive, full-CRUD issue tracker using Django, Django Rest Framework, and SQLite.
 
