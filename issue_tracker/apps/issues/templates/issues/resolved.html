@@ -1,0 +1,31 @@
+{% extends 'issues/template.html' %}
+{% block title %}
+Resolved Issues
+{% endblock title %}
+{% block content %}
+  <table>
+    <tr>
+      <th class='t-0'>ID</th>
+      <th class='t-8'>Desc</th>
+      <th class='t-2'>Created On</th>
+      <th class='t-2'>Resolved On</th>
+    </tr>
+    {% for issue in issues %}
+    <tr>
+      <td>
+        <span class="sm-show">ID: </span>
+        <a href="/issues/res/{{issue.id}}">{{ issue.id }}</a>
+      </td>
+      <td>
+        {{ issue.short }}
+      </td>
+      <td>
+        {{ issue.created_on }}
+      </td>
+      <td>
+        {{ issue.resolved_on }}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock content %}

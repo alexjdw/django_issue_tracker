@@ -126,7 +126,7 @@ class ResolvedIssue(models.Model):
     short = models.CharField(max_length=200)
     desc = models.CharField(max_length=500)
     priority = models.PositiveSmallIntegerField()
-    created_on = models.DateField(auto_now_add=True)
+    created_on = models.DateField()
     updated_on = models.DateField(auto_now=True)
     resolved_on = models.DateTimeField(auto_now_add=True)
     serialized_log = models.TextField(null=True)

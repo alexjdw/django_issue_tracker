@@ -23,7 +23,8 @@ Administration:
           {% for issue in issues %}
           <tr issue-id="{{issue.id}}">
             <td>
-              <span class="sm-show">ID: </span><a href="/issues/{{issue.id}}">{{ issue.id }}</a>
+              <span class="sm-show">ID: </span>
+              <a href="/issues/{{issue.id}}">{{ issue.id }}</a>
             </td>
             <td class="sev-td">
               {% include 'admins/partials/sev-td.html' with issue=issue %}

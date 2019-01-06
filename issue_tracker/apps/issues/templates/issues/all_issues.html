@@ -3,16 +3,6 @@
 Open Issues:
 {% endblock %}
 {% block content %}
-  <div class="center">
-    <div class="dismissable error">
-      <div class="close">
-        <i class="fas fa-times"></i>
-      </div>
-      <p class="inner">
-        Message!
-      </p>
-    </div>
-  </div>
   <div class="issues-grid">
     {% for issue in issues %}
     <div class="issue sev-{{issue.priority}} grid-1" url="{{ issue.category.name }}-{{ issue.id }}">

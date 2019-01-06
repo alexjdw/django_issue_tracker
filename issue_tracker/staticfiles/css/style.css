@@ -708,6 +708,7 @@ nav div.expand {
 
 .dropdown {
   display: none;
+  background-color: #5ca4a9;
 }
 
 .dropdown li {
@@ -715,6 +716,7 @@ nav div.expand {
 }
 
 .dropdown-toggle {
+  padding-left: 1rem;
   cursor: pointer;
 }
 
@@ -727,6 +729,7 @@ nav div.expand {
 }
 
 nav ul .collapse li {
+  position: relative;
   padding: 0.3em 1em;
   transition: all 0.5s;
 }
@@ -1234,16 +1237,16 @@ nav ul li {
 @media screen and (min-width: 900px) {
   .dropdown {
     position: absolute;
-    min-width: 160px;
-    max-width: 160px;
+    width: 100%;
     height: auto;
+    left: 0;
     top: 3.5em;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
   }
   .dropdown li {
-    display: block;
-    width: 100%;
+    display: block !important;
+    width: auto;
   }
 }
 @media screen and (min-width: 900px) {

@@ -80,16 +80,16 @@
 
   .dropdown {
     position: absolute;
-    min-width: 160px;
-    max-width: 160px;
+    width: 100%;
     height: auto;
+    left: 0;
     top: 3.5em;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 
     li {
-      display: block;
-      width: 100%;
+      display: block !important;
+      width: auto;
     }
   }
 

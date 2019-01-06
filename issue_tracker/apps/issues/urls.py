@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^drop/(?P<issueno>[0-9]+)$', views.drop_issue),
     url(r'^(?P<category>[a-zA-Z]+)-(?P<issueno>[0-9]+)$', views.issue),
     url(r'^(?P<issueno>[0-9]+)$', views.issue),
+    url(r'^res$', views.resolved),
     url(r'^search$', views.search)
 ]

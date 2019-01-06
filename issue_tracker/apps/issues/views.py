@@ -239,3 +239,13 @@ def search(request):
     }
 
     return render(request, 'issues/search.html', context)
+
+
+def resolved(request):
+    '''
+    Route for displaying resolved issues.
+    '''
+    context = {
+        'issues': ResolvedIssue.objects.all()
+    }
+    return render(request, 'issues/resolved.html', context)
