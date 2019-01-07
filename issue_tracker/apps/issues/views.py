@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from .models import Issue, ResolvedIssue, IssueLogEntry, Category
 from django.db.models import Q
-
+from apps.lib.decorators import get_issue_from_issueno
 
 @login_required
 def all_issues(request):
@@ -47,22 +47,18 @@ def team_issues(request):
 
 
 @login_required
-def issue(request, issueno, category=None):
+@get_issue_from_issueno
+def issue(request, issue, category=None):
     '''
     Renders the details for a single issue.
 
     :issueno: The issue's database ID.
+      :issue: This is provided automatically via the decorator
     :category: The issue's category name.
 
     (Category doesn't matter as we pull issues directly from the issueno, but
     we do check if it matches.)
     '''
-    try:
-        issue = Issue.objects.get(id=issueno)
-    except ObjectDoesNotExist:
-        messages.error(
-            request, "Issue doesn't exist. Are you sure you got the right issue id?")
-        return redirect('/issues/all')
     if category is not None and issue.category.name != category:
         messages.error(
             request, "URL category doesn't match the issue. Are you sure you got the right issue id?")
@@ -95,16 +91,11 @@ def create_form(request):
 
 
 @login_required
-def join_issue(request, issueno, category=None):
+@get_issue_from_issueno
+def join_issue(request, issue, category=None):
     '''
     Route for adding an issue to your watch list.
     '''
-    try:
-        issue = Issue.objects.get(id=issueno)
-    except ObjectDoesNotExist:
-        messages.error(request, 'Issue not found. It may have been removed.')
-        return redirect('/issues/all')
-
     if request.user not in issue.users.all() and issue.owner != request.user:
         issue.users.add(request.user)
         issue.save()
@@ -115,15 +106,11 @@ def join_issue(request, issueno, category=None):
 
 
 @login_required
-def own_issue(request, issueno, category=None):
+@get_issue_from_issueno
+def own_issue(request, issue, category=None):
     '''
     Route for taking ownership of an issue. User will appear as the "Lead" on the issue.
     '''
-    try:
-        issue = Issue.objects.get(id=issueno)
-    except ObjectDoesNotExist:
-        messages.error(request, 'Issue not found. It may have been removed.')
-        return redirect('/issues/all')
 
     if issue.owner is not None:
         messages.error(request, 'This issue alread has an owner: ' +
@@ -137,7 +124,8 @@ def own_issue(request, issueno, category=None):
 
 
 @login_required
-def add_to_log(request, issueno, category=None):
+@get_issue_from_issueno
+def add_to_log(request, issue, category=None):
     '''
     POST route for adding to the "log" section for a single issue.
     '''
@@ -145,11 +133,9 @@ def add_to_log(request, issueno, category=None):
         messages.error(request, 'Got an invalid request type:' + request.type)
         return redirect('/issues/all')
 
-    try:
-        issue = Issue.objects.get(id=issueno)
-    except ObjectDoesNotExist:
-        messages.error(request, 'Issue not found. It may have been removed.')
-        return redirect('/issues/all')
+    if len(request.POST['logtext']) < 10:
+        messages.info(request, "Please include at least 10 characters in your log entry.")
+        return redirect('/issues/' + str(issue.id))
 
     logentry = IssueLogEntry.objects.create(creator=request.user,
                                             issue=issue,
@@ -185,26 +171,24 @@ def one_category(request, category):
 
 
 @login_required
-def mark_complete(request, issueno):
+@get_issue_from_issueno
+def mark_complete(request, issue):
     '''
     Route for marking an issue resolved an issue via an AJAX request.
 
     Add the issue to the Resolved Issues table. Issue ID is not currently preserved.
     '''
-    issue = Issue.objects.get(id=issueno)
     res = ResolvedIssue.from_issue(issue)
-
     issue.delete()
-
     return HttpResponse('')
 
 
 @login_required
-def drop_issue(request, issueno):
+@get_issue_from_issueno
+def drop_issue(request, issue):
     '''
     Route for dropping an issue via an AJAX request.
     '''
-    issue = Issue.objects.get(id=issueno)
     request.user.issues_joined.remove(issue)
     request.user.save()
 
@@ -240,6 +224,7 @@ def search(request):
     return render(request, 'issues/search.html', context)
 
 
+@login_required
 def resolved(request):
     '''
     Route for displaying resolved issues.
