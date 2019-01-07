@@ -1,0 +1,31 @@
+{% extends 'lib/template.html' %}
+{% block title %} Login/Register: {% endblock %}
+{% block content %}
+  {% with user=request.user %}
+  <h3>{{ user.first_name }} {{ user.last_name}}</h3>
+  <p>
+    <a href="mailto:{{ user.email }}?subject=Issue%20Tracker">
+      {{ user.email }}
+    </a>
+  </p>
+  <h4>Current Issues</h4>
+  <p>
+    <h5>Lead:</h5>
+    {% for issue in user.issues_owned.all %}
+      <a href="/issues/{{issue.category.name}}-{{issue.id}}">
+        {{issue.category.name}}-{{issue.id}}
+      </a>
+    {% endfor %}
+    <h5>Following: </h5>
+    {% for issue in user.issues_joined.all %}
+      <a href="/issues/{{issue.category.name}}-{{issue.id}}">
+        {{issue.category.name}}-{{issue.id}}
+      </a>
+    {% endfor %}
+  </p>
+  <br><br>
+  <p>
+    User since {{ user.date_joined }}
+  </p>
+  {% endwith %}
+{% endblock %}

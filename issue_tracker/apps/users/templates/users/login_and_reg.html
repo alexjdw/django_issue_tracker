@@ -1,4 +1,7 @@
-{% extends 'users/template.html' %} {% block title %} Login/Register: {% endblock %} {% block content %}
+{% extends 'users/template.html' %}
+{% block title %} Login/Register: {% endblock %}
+
+{% block content %}
 <div class="form-container">
   <form id="login" action="/u/login_submit" method="post">
     {% csrf_token %}
