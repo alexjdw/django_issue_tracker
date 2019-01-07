@@ -4,52 +4,70 @@ Issue {{ issueno }}:
 {% endblock title %}
 
 {% block content %}
-    <div class="single-issue-grid">
-      <div class="issue sev-{{ issue.priority }} grid-postit">
-        <div class="issue-inner">
-        <h4>{{ issue.category.name }}-{{issue.id}}</h4>
-        {{ issue.short }}
-        </div>
-      </div>
-      <div class="grid-info">
-        {% if issue.owner %}
-          <h4>
-            Lead: 
-            <a href="mailto:{{ issue.owner.email }}?subject=Issue%20{{issue.category.name}}{{issue.id}}">
-              {{ issue.owner.first_name }} {{ issue.owner.last_name }}
-            </a>
-          </h4>
-        {% endif %}
-        <p>Reported by: {{ issue.creator.first_name }} {{ issue.creator.last_name }}</p>
-        <p>Issue Since: {{ issue.created_on }}</p>
-        <p>Priority: <span class="sev-{{issue.priority}}">{{ issue.priority }}</span></p>
-      </div>
-      <div class="grid-footer">
-        <h3>Issue Details</h3>
-        {{ issue.desc }}
-      </div>
-      <div class="grid-log">
-        <h3>
-          Log
-        </h3>
-        <form action="{{ issue.category.name }}-{{issue.id}}/log" method="POST">
-          {% csrf_token %}
-          <textarea name="logtext" placeholder="Add a comment to this issue."></textarea>
-          <button class="primary">Post Comment</button>
-        </form>
-        {% for log in issue.log_entries.all %}
-          <h4>{{ log.creator.first_name }}</h4>
-          <p><em>on {{ log.created_on }}</em></p>
-          <p>{{ log.entry }}</p>
-        {% endfor %}
+  <div class="single-issue-grid">
+    <div class="issue sev-{{ issue.priority }} grid-postit">
+      <div class="issue-inner">
+      <h4>{{ issue.category.name }}-{{issue.id}}</h4>
+      {{ issue.short }}
       </div>
     </div>
-    <div>
-      <a href="{{issue.id}}/join">
-        <button class="button-ico-secondary" hovertxt="Watch issue."><i class="fas fa-eye"></i></button>
-      </a>
-      <a href="{{issue.id}}/own">
-        <button class="button-ico-highlight" hovertxt="Take ownership of issue."><i class="fas fa-lock"></i></button>
-      </a>
+    <div class="grid-info">
+      {% if issue.owner %}
+        <h4>
+          Lead: 
+          <a href="mailto:{{ issue.owner.email }}?subject=Issue%20{{issue.category.name}}{{issue.id}}">
+            {{ issue.owner.first_name }} {{ issue.owner.last_name }}
+          </a>
+        </h4>
+      {% endif %}
+      <p>Reported by: {{ issue.creator.first_name }} {{ issue.creator.last_name }}</p>
+      <p>Issue Since: {{ issue.created_on }}</p>
+      <p>Priority: <span class="sev-{{issue.priority}}">{{ issue.priority }}</span></p>
     </div>
+    <div class="grid-footer">
+      <h3>Issue Details</h3>
+      {{ issue.desc }}
+    </div>
+    <div class="grid-log">
+      <h3>
+        Log
+      </h3>
+      <form action="{{ issue.category.name }}-{{issue.id}}/log" method="POST">
+        {% csrf_token %}
+        <textarea name="logtext" placeholder="Add a comment to this issue."></textarea>
+        <button class="primary">Post Comment</button>
+      </form>
+      {% for log in issue.log_entries.all %}
+        <h4>{{ log.creator.first_name }}</h4>
+        <p><em>on {{ log.created_on }}</em></p>
+        <p>{{ log.entry }}</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div>
+    {% if request.user in issue.users.all %}
+    <a href="{{issue.id}}/join">
+      <button class="primary icon" hovertxt="Follow issue.">
+        <i class="fas fa-eye"></i>
+      </button>
+    </a>
+    {% else %}
+    <a href="drop/{{issue.id}}">
+      <button class="primary icon" hovertxt="Unfollow issue.">
+        <i class="fas fa-times"></i>
+      </button>
+    </a>
+    {% endif %}
+
+    <a href="{{issue.id}}/own">
+      <button class="primary icon" hovertxt="Take ownership of issue.">
+        <i class="fas fa-lock"></i>
+      </button>
+    </a>
+    <a href="mark-complete/{{issue.id}}">
+      <button class="primary icon" hovertxt="Mark this issue as complete.">
+        <i class="fas fa-check"></i>
+      </button>
+    </a>
+  </div>
 {% endblock content %}

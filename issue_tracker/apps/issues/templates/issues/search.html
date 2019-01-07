@@ -11,7 +11,7 @@ Search Results
 
   <h2>Issues</h2>
   {% for issue in issues %}
-    <div class="issue sev-{{issue.priority}} grid-1" url="{{ issue.category.name }}-{{ issue.id }}">
+    <div class="issue sev-{{issue.priority}} inline" url="{{ issue.category.name }}-{{ issue.id }}">
       <div class="issue-inner">
         <h4>{{ issue.category.name }}-{{ issue.id }}</h4>
         {{ issue.short }}
