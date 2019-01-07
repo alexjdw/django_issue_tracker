@@ -47,7 +47,7 @@ This will start the server. Visit localhost:8000 and log in with your new userna
 
 # Disclaimer
 
-This is a demo project at this time! You *will* run into many issues. At the time of this readme update, there are several linked pages that simply aren't implemented at all. However, I hope you'll find that the app is complete and usable as an issue tracker as of this moment. Please let me know if anything on the Open Issues, My Issues, New, /api, or /super routes seems to be crashing.
+This is a demo project at this time! You *will* run into many issues. There may be several linked pages that simply aren't implemented at all. However, I hope you'll find that the app is complete and usable as an issue tracker as of this moment. Please let me know if you find a terminal bug.
 
 In addition, you'll notice that it's a bit, ahem, *ugly*. I'm not a designer, so icons are largely pilfered from the wonderful folks at Font Awesome, fonts are from Google Fonts, and other images are either made by me or taken from a copyright-free search on the web. Colors were selected from an online color scheme generator. Until functionality is complete, I'm holding off on tinkering with the visuals.
 
@@ -107,7 +107,11 @@ It's possible to go live with this project as is, and I have tested recent build
 
 ## Contributing
 
-I'm using this as a resume project, so please, no pull requests at this time. I'd like to maintain ownership of the code. Once complete, I will open up pull requests for bugs and new features. Please let me know if you plan to use this project. I take no liability for your use as this project is not complete at this time.
+I'm using this as a resume project, but feel free to submit a pull request for anything you like.
+
+## More About Me
+
+Thanks again for viewing this. I've been developing simple programs in C++, Basic, and other languages since I was a teenager, so I suppose you could say I have about 20 years of coding experience. Life took me on other paths, and I worked as a content writer for some time. I'm currently attending a 3 month, 80-hour-a-week bootcamp program in San Jose to find out what professional software development really entails and learn the latest technologies. If you're seeking a Flask, Django, Angular, React, or Spring full-stack developer, I'd love to hear from you.
 
 ## Authors
 
