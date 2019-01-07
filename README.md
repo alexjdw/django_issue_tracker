@@ -4,7 +4,7 @@ Welcome to my demo project: a handmade, responsive, full-CRUD issue tracker usin
 
 Every element of this project is hand-coded by me, and I purposefully avoided using the familiar Foundation and Bootstrap frameworks or using a predesigned website layout. I now understand the consequences of my actions. I am a reformed man who will let the professional designers do their job in the future. Please see the disclaimer section below for more details.
 
-The purpose of this project is to demonstrate a CRUD application that implements the most common features used on the web today. I decided on Django for a server framework and worked in a thorough API, custom SCSS, and responsive design elements. AJAX with jQuery is used for the majority of dynamic content, and everyone's favorite JQuery UI handles the user interface. It worked so well for me that I started tracking its own issues and planned features!
+The purpose of this project is to demonstrate a CRUD application that implements the most common features used on the web today. I decided on Django for a server framework and worked in a thorough API, custom SCSS, and responsive design elements. AJAX with jQuery is used for the majority of dynamic content, and the animations and user interface and handled with mostly custom code and a smattering of jQuery. It worked so well for me that I started tracking its own issues and planned features!
 
 ## Getting Started
 
@@ -49,49 +49,49 @@ This will start the server. Visit localhost:8000 and log in with your new userna
 
 This is a demo project at this time! You *will* run into many issues. At the time of this readme update, there are several linked pages that simply aren't implemented at all. However, I hope you'll find that the app is complete and usable as an issue tracker as of this moment. Please let me know if anything on the Open Issues, My Issues, New, /api, or /super routes seems to be crashing.
 
-In addition, you'll notice that it's a bit, ahem, *ugly*. I'm creating this project completely from scratch! I'm not a designer, so icons are largely pilfered from the wonderful folks at Font Awesome, fonts are from Google Fonts, and images are either made by me or pilfered from a copyright-free search on the web. Colors were selected from an online color scheme generator. I can't say I am strong with visual design, and the lack of a framework makes updating the style and color scheme and such quite time consuming, so until functionality is complete, I'm holding off on tinkering with the minor visuals.
+In addition, you'll notice that it's a bit, ahem, *ugly*. I'm not a designer, so icons are largely pilfered from the wonderful folks at Font Awesome, fonts are from Google Fonts, and other images are either made by me or taken from a copyright-free search on the web. Colors were selected from an online color scheme generator. Until functionality is complete, I'm holding off on tinkering with the visuals.
 
-However, I can proudly say that every element of this website was hand-coded by me using a minimum of templated code. This project single-handedly made me rethink how my HTML, SASS, and JavaScript code should be organized. I'm still a ways away from my desired level of DRYness!
+However, I can proudly say that every element of this website was styled and coded by me using a minimum of templated code. This project single-handedly made me rethink how my HTML, SASS, and JavaScript code should be organized. I'm still a ways away from my desired level of DRYness!
 
 # General Usage
 
-This is a demo project! Here's a quick tour of the working features:
+This is a demo project not suited for production use. Here's a quick tour of the working features:
 
-login and registration:
+### login and registration:
 localhost:8000 (while logged out)
 
-api:
+### api:
 localhost:8000/api
 A clickable API using Django REST Framework, which is a wonderful tool that made this very easy. The project itself uses its own API in several places.
 To see raw JSON, add ?format=json to the end of any API URL.
 
-post-it issue tracker:
+### post-it issue tracker:
 localhost:8000/issues
-- After logging in, you'll be dropped off here. Click "New" on the NavBar and add some sample issues.
+- After logging in, you'll be dropped off here. Click "New" on the NavBar and add some sample issues using the form.
 - Once you have a few issues made, head back to the Open Issues page to see the postits.
-- Postits are clickable!
+- Postits are clickable on most pages.
 
-basic admin page:
+### basic admin page:
 localhost:8000/super
 - Make sure to use the above method to create a super user.
-- Make sure to create a few issues first using the "New" tab.
-- To get the full experience, create a few users.
+- Make sure to create a few issues first using the "New" link.
+- To get the full experience, create a few more users by logging out and using the registration form. (Registration keys are disabled for now.)
 - Click on table rows and buttons to make edits. Clicked "active" table rows will display more options.
 - Clicking buttons or specific table elements will allow you to add/remove users on an issue, change the issue owner, and update the priority in real time.
 
-search:
-Search is available on /super and /issues. It suggests existing categories to search for. These are populated dynamically with AJAX based on the issues you've added.
+### search:
+Search is available while logged in. It suggests existing categories to search for. These are populated dynamically with AJAX based on the issues you've added in the past.
 
 ## Deployment
 
-It's possible to go live with this project as is, and I have tested recent builds on Amazon EC2 with Gunicorn and Nginx as my service manager and web endpoint respectively. However, this build is not production-ready. Please let me know before you deploy anything in the public space.
+It's possible to go live with this project as is, and I have tested recent builds on Amazon EC2 with Gunicorn and Nginx as my service manager and gateway respectively. However, this build is not production-ready. Please let me know before you deploy anything in the public space.
 
 ## Technologies
 
-* Django 1.11.7 (https://www.djangoproject.com/)
-* Django REST Framework (https://www.django-rest-framework.org/)
-* jQuery & jQuery UI (https://jquery.com/)
-* SASS (https://sass-lang.com/)
+* [Django 1.11](https://www.djangoproject.com/)
+* [Django REST Framework](https://www.django-rest-framework.org/)
+* [jQuery & jQuery UI](https://jquery.com/)
+* [SASS](https://sass-lang.com/)
 
 ## Learning Moments for Me
 
