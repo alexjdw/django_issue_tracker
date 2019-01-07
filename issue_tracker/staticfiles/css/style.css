@@ -935,11 +935,21 @@ table {
 }
 
 tr, td {
-  transition: background-color 0.6s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+}
+
+tbody tr {
+  background-color: #f8f9f6;
+}
+tbody tr:hover {
+  background-color: #f0f3ec;
 }
 
 tr.selected, td.selected {
   background-color: #F4F1BB;
+}
+tr.selected:hover, td.selected:hover {
+  background-color: #f8f6d1;
 }
 
 td, th {
@@ -1079,6 +1089,10 @@ div.issue-inner h4 {
 
 .sev-td:hover {
   cursor: pointer;
+}
+
+#register {
+  display: none;
 }
 
 @media screen and (min-width: 600px) {

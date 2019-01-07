@@ -1,4 +1,5 @@
 function removeuser(e) {
+    console.log($(this));
     $.ajax({
             url: 'remove-user/' + $(this).attr('issueid'),
             data: 'id=' + $(this).attr('uid'),
@@ -6,7 +7,7 @@ function removeuser(e) {
         })
         .done(function(response) {
             $(this).html(response);
-            $(this).click(removeuser);
+            $('.remove-user').on('click', removeuser);
         })
         .fail(function(response) {
             console.log("Error: ");
@@ -290,5 +291,15 @@ $(document).ready(function() {
             $('.edit').show();
             $('.modal').hide();
         }
+    });
+
+    $('#showreg').click(function() {
+        $('#login').fadeOut(200);
+        $('#register').delay(200).fadeIn(200);
+    });
+
+    $('#showlogin').click(function() {
+        $('#login').delay(200).fadeIn(200);
+        $('#register').fadeOut(200);
     });
 });

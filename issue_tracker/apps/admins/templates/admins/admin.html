@@ -1,82 +1,82 @@
-{% extends 'admins/template.html' %}
+{% extends 'lib/template.html' %}
 
 {% block title %}
 Administration:
 {% endblock title %}
 
 {% block content %}
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th class="t-0">ID</th>
-            <th class="t-0">Sev</th>
-            <th class="t-5">Description</th>
-            <th class="t-2">Users</th>
-            <th class="t-0"></th>
-            <th class="t-1">Owner</th>
-            <th class="t-0"></th>
-            <th class="t-4">Updates</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for issue in issues %}
-          <tr issue-id="{{issue.id}}">
-            <td>
-              <span class="sm-show">ID: </span>
-              <a href="/issues/{{issue.id}}">{{ issue.id }}</a>
-            </td>
-            <td class="sev-td">
-              {% include 'admins/partials/sev-td.html' with issue=issue %}
-            </td>
-            <td>
-              {{ issue.short }}
-            </td>
-            <td modal-issue-id="{{issue.id}}">
-              {% include 'admins/partials/users-td.html' with issue=issue %}
-            </td>
-            <td>
-              <button class="show-modal primary icon" modal-action="add-users/{{issue.id}}" modal-max-selections="25"><i class="fas fa-plus"></i></button>
-            </td>
-            <td>
-              {% include 'admins/partials/owner-td.html' with issue=issue %}
-            </td>
-            <td>
-                <button class="show-modal primary icon" modal-action="set-owner/{{issue.id}}" modal-max-selections="1"><i class="fas fa-edit"></i></button>
-            </td>
-            <td>
-              {% with issue.log_entries.first.creator as user %}
-                <a href="mailto:{{user.email}}?subject=Issue%20{{issue.category.name}}-{{issue.id}}" title="{{user.first_name}} {{user.last_name}} | {{user.email}}">{{ user.first_name }}</a>
-                {{ issue.log_entries.first.entry }}
-              {% endwith %}
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <div class="row">
-        <div class="ml-auto indent t-center">
-          <p><a href="#">1</a> 2 <a href="#">3</a> ... <a href="#">Last</a></p>
-          <button class="button-primary">Open Issues</button>
-          <button class="button-primary">New Issue</button>
-        </div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th class="t-0">ID</th>
+          <th class="t-0">Sev</th>
+          <th class="t-5">Description</th>
+          <th class="t-2">Users</th>
+          <th class="t-0"></th>
+          <th class="t-1">Owner</th>
+          <th class="t-0"></th>
+          <th class="t-4">Updates</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for issue in issues %}
+        <tr issue-id="{{issue.id}}">
+          <td>
+            <span class="sm-show">ID: </span>
+            <a href="/issues/{{issue.id}}">{{ issue.id }}</a>
+          </td>
+          <td class="sev-td">
+            {% include 'admins/partials/sev-td.html' with issue=issue %}
+          </td>
+          <td>
+            {{ issue.short }}
+          </td>
+          <td modal-issue-id="{{issue.id}}">
+            {% include 'admins/partials/users-td.html' with issue=issue %}
+          </td>
+          <td>
+            <button class="show-modal primary icon" modal-action="add-users/{{issue.id}}" modal-max-selections="25"><i class="fas fa-plus"></i></button>
+          </td>
+          <td>
+            {% include 'admins/partials/owner-td.html' with issue=issue %}
+          </td>
+          <td>
+              <button class="show-modal primary icon" modal-action="set-owner/{{issue.id}}" modal-max-selections="1"><i class="fas fa-edit"></i></button>
+          </td>
+          <td>
+            {% with issue.log_entries.first.creator as user %}
+              <a href="mailto:{{user.email}}?subject=Issue%20{{issue.category.name}}-{{issue.id}}" title="{{user.first_name}} {{user.last_name}} | {{user.email}}">{{ user.first_name }}</a>
+              {{ issue.log_entries.first.entry }}
+            {% endwith %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="ml-auto indent t-center">
+        <p><a href="#">1</a> 2 <a href="#">3</a> ... <a href="#">Last</a></p>
+        <button class="button-primary">Open Issues</button>
+        <button class="button-primary">New Issue</button>
       </div>
     </div>
+  </div>
 
-    <div class="modal">
-      <div class="modal-content modal-form">
-        <div class="x">
-          <i class="fas fa-times-circle"></i>
-        </div>
-        <form id="modal-form" action="" method="POST">
-          {% csrf_token %}
-          <input type="text" class="modal-users">
-          <input id="ids" name="ids" type="hidden">
-          <ul id="modal-selected-users">
-          </ul>
-          <button id="modal-submit" type="submit" class="primary">Submit</button>
-          <div class="loader" id="modal-loader"></div>
-        </form>
+  <div class="modal">
+    <div class="modal-content modal-form">
+      <div class="x">
+        <i class="fas fa-times-circle"></i>
       </div>
+      <form id="modal-form" action="" method="POST">
+        {% csrf_token %}
+        <input type="text" class="modal-users">
+        <input id="ids" name="ids" type="hidden">
+        <ul id="modal-selected-users">
+        </ul>
+        <button id="modal-submit" type="submit" class="primary">Submit</button>
+        <div class="loader" id="modal-loader"></div>
+      </form>
     </div>
+  </div>
 {% endblock content %}

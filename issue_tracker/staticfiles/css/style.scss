@@ -432,11 +432,21 @@ table {
 }
 
 tr, td {
-  transition: background-color .6s ease-in-out;
+  transition: background-color .2s ease-in-out;
+}
+
+tbody tr {
+  background-color: $c-white;
+  &:hover {
+    background-color: darken($c-white, 3%);
+  }
 }
 
 tr.selected, td.selected {
   background-color: $c-warm;
+  &:hover {
+    background-color: lighten($c-warm, 5%);
+  }
 }
 
 td, th {
@@ -521,6 +531,10 @@ div.issue-inner h4 {
 
 .sev-td:hover {
   cursor: pointer;
+}
+
+#register {
+  display: none;
 }
 
 @import 'style-medium';
