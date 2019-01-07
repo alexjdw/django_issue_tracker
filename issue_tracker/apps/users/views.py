@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import User, RegKey
 
 
@@ -47,3 +47,8 @@ def login_submit(request):
     else:
         redirect(login_page)
     return redirect('/issues/all')
+
+
+def logout_route(request):
+    logout(request)
+    return redirect(login_page)
