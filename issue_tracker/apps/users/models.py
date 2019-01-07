@@ -16,6 +16,15 @@ class Permissions(models.Model):
             related_name="permissions")
 
 
+class Team(models.Model):
+    '''
+    Users may join a team and issues may be assigned to teams.
+    '''
+    name = models.CharField(max_length=80)
+    manager = models.ForeignKey(User, related_name='managed_team')
+    users = models.ManyToManyField(User, related_name='teams')
+
+
 class RegKey(models.Model):
     '''
     Keys for registering users.

@@ -1174,10 +1174,10 @@ div.issue-inner h4 {
   }
 
   .informative-grid {
-    display: grid;
-    grid-template-columns: 50px 50px 200px auto;
+    display: inline-grid;
+    grid-template-columns: 50px 50px 150px;
     grid-auto-rows: auto;
-    grid-template-areas: "postit postit postit info" "footer footer footer footer" "b1 b2 . .";
+    grid-template-areas: "postit postit postit" "info info info" "footer footer footer" "b1 b2 . .";
   }
 
   .single-issue-grid {

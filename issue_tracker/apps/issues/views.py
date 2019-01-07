@@ -105,7 +105,7 @@ def join_issue(request, issueno, category=None):
         messages.error(request, 'Issue not found. It may have been removed.')
         return redirect('/issues/all')
 
-    if request.user not in issue.users.all():
+    if request.user not in issue.users.all() and issue.owner != request.user:
         issue.users.add(request.user)
         issue.save()
     else:
@@ -130,9 +130,8 @@ def own_issue(request, issueno, category=None):
                        issue.owner.first_name + " " + issue.owner.last_name)
         print("Error")
     else:
-        print(issue.owner)
         issue.owner = request.user
-        print("Owner assigned", issue.owner)
+        issue.users.remove(request.user)  # remove from watch list to avoid duplicates
         issue.save()
     return redirect('/issues/' + issue.category.name + '-' + str(issue.id))
 
