@@ -62,8 +62,8 @@ localhost:8000 (while logged out)
 
 ### api:
 localhost:8000/api
-A clickable API using Django REST Framework, which is a wonderful tool that made this very easy. The project itself uses its own API in several places.
-To see raw JSON, add ?format=json to the end of any API URL.
+- A clickable API using Django REST Framework, which is a wonderful tool that made this very easy. The project itself uses its own API in several places.
+- To see raw JSON, add ?format=json to the end of any API URL.
 
 ### post-it issue tracker:
 localhost:8000/issues
