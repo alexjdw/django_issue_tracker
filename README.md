@@ -1,6 +1,6 @@
 # Sticky Notes: A Django Issue Tracker
 
-Welcome to my demo project: a handmade, Django-based, responsive, full-CRUD issue tracker using Django, Django Rest Framework, and SQLite.
+Welcome to my demo project: a handmade, responsive, full-CRUD issue tracker using Django, Django Rest Framework, and SQLite.
 
 Every element of this project is hand-coded by me, and I purposefully avoided using the familiar Foundation and Bootstrap frameworks or using a predesigned website layout. I now understand the consequences of my actions. I am a reformed man who will let the professional designers do their job in the future. Please see the disclaimer section below for more details.
 
