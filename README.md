@@ -4,7 +4,7 @@ Welcome to my demo project: a handmade, responsive, full-CRUD issue tracker usin
 
 Every element of this project is hand-coded by me, and I purposefully avoided using the familiar Foundation and Bootstrap frameworks or using a predesigned website layout. I now understand the consequences of my actions. I am a reformed man who will let the professional designers do their job in the future. Please see the disclaimer section below for more details.
 
-The purpose of this project is to demonstrate a CRUD application that implements the most common features used on the web today. I decided on Django for a server framework and worked in a thorough API, custom SCSS, and responsive design elements. AJAX with jQuery is used for the majority of dynamic content, and the animations and user interface and handled with mostly custom code and a smattering of jQuery. It worked so well for me that I started tracking its own issues and planned features!
+The purpose of this project is to demonstrate a CRUD application that implements the most common features used on the web today. I decided on Django for a server framework and worked in a thorough API, custom SCSS, and responsive design elements. AJAX with jQuery is used for the majority of dynamic content, and the animations and user interface are handled with mostly custom code and a smattering of jQuery. It worked so well for me that I started tracking its own issues and planned features!
 
 ## Getting Started
 
