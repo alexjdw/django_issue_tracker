@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <title>{% block title %}{% endblock %} Yourcompany.com Issue Tracker by Alex</title>
+  {% include 'lib/imports.html' %}
+</head>
+<body>
+  <nav>
+    <div class="expand lg-hide xl-hide">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul>
+      <li class="sm-hide md-hide">
+        <a href="/" class="brand"><i class="fas fa-dragon insetshadowed"></i></a>
+      </li>
+      <ul class="collapse">
+        <li>
+          <a href="/issues/all">Open Issues</a>
+          {% include 'lib/nav-issues.html' %}
+        </li>
+        {% if request.user.permissions.adminpage %}
+        <li>
+          <a href="/super">Manage<a>
+        </li>
+        {% endif %}
+        <li>
+          <a href="/u/profile">Profile</a>
+          {% include 'lib/nav-user.html'%}
+        </li>
+        <li>
+          <a href="/issues/new">New <i class="fas fa-plus"></i></a>
+        </li>
+        <li class="nav-right">
+          <form action="/issues/search" method="GET">
+            <div class="ui-widget">
+              <input class="nav-search" name="nav-search" type="text">
+            </div>
+            <button class="light">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </li>
+        <li class="sm-hide md-hide">
+          <a href="#">
+            <p class="tiny">Issue<br>Tracker</p>
+          </a>
+        </li>
+      </ul>
+    </ul>
+  </nav>
+  <main>
+    {% include 'lib/errors.html' %}
+    {% block content %} {% endblock %}
+  </main>
+  {% include 'lib/jsimports.html' %}
+</body>
+
+</html>

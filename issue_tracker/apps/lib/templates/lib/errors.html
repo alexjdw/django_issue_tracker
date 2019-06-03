@@ -1,0 +1,14 @@
+{% if messages %}
+  {% for message in messages %}
+  <div class="center">
+    <div class="dismissable {{ message.tags|default:'info' }}">
+      <div class="close">
+        <i class="fas fa-times"></i>
+      </div>
+      <p class="inner">
+        {{message}}
+      </p>
+    </div>
+  </div>
+  {% endfor %}
+{% endif %}
