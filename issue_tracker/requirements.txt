@@ -5,7 +5,7 @@ Django==1.11.23
 django-debug-toolbar==1.11
 django-extensions==2.1.4
 django-filter==2.0.0
-djangorestframework==3.9.0
+djangorestframework==3.11.2
 Markdown==3.0.1
 pycparser==2.19
 python-dateutil==2.7.5
